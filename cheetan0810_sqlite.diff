@@ -1,0 +1,487 @@
+diff -cNr cheetan-org/boot.php cheetan/boot.php
+*** cheetan-org/boot.php	2008-03-12 18:51:08.000000000 +0900
+--- cheetan/boot.php	2009-11-30 21:10:04.000000000 +0900
+***************
+*** 28,33 ****
+--- 28,45 ----
+  	{
+  		require_once LIBDIR . DIRECTORY_SEPARATOR . "db" . DIRECTORY_SEPARATOR . "txtsql.php";
+  	}
++ 	if( file_exists( LIBDIR . DIRECTORY_SEPARATOR . "db" . DIRECTORY_SEPARATOR . "sqlite.php" ) )
++ 	{
++ 		require_once LIBDIR . DIRECTORY_SEPARATOR . "db" . DIRECTORY_SEPARATOR . "sqlite.php";
++ 	}
++ 	if( file_exists( LIBDIR . DIRECTORY_SEPARATOR . "db" . DIRECTORY_SEPARATOR . "pdo_sqlite.php" ) )
++ 	{
++ 		require_once LIBDIR . DIRECTORY_SEPARATOR . "db" . DIRECTORY_SEPARATOR . "pdo_sqlite.php";
++ 	}
++ 	if( file_exists( LIBDIR . DIRECTORY_SEPARATOR . "db" . DIRECTORY_SEPARATOR . "sqlite3.php" ) )
++ 	{
++ 		require_once LIBDIR . DIRECTORY_SEPARATOR . "db" . DIRECTORY_SEPARATOR . "sqlite3.php";
++ 	}
+
+  	if( !defined( "SCRIPTFILE" ) )
+  	{
+diff -cNr cheetan-org/cheetan.php cheetan/cheetan.php
+*** cheetan-org/cheetan.php	2008-03-12 18:51:08.000000000 +0900
+--- cheetan/cheetan.php	2009-09-22 15:28:44.000000000 +0900
+***************
+*** 4,9 ****
+--- 4,12 ----
+  copyright (c) 2006 cheetan all right reserved.
+  http://php.cheetan.net/
+  -----------------------------------------------------------------------------*/
++ 	// cheetan Version
++ 	define('CH_VERSION',	'0.8.1.0_SQLite');
++
+  	if( !defined( "LIBDIR" ) )
+  	{
+  		define( "LIBDIR", dirname(__FILE__) );
+diff -cNr cheetan-org/database.php cheetan/database.php
+*** cheetan-org/database.php	2008-03-12 18:51:08.000000000 +0900
+--- cheetan/database.php	2009-11-30 21:09:40.000000000 +0900
+***************
+*** 7,12 ****
+--- 7,15 ----
+  define( "DBKIND_MYSQL", "0" );
+  define( "DBKIND_PGSQL", "1" );
+  define( "DBKIND_TEXTSQL", "2" );
++ define( "DBKIND_SQLITE", "3" );
++ define( "DBKIND_PDO_SQLITE", "4" );
++ define( "DBKIND_SQLITE3", "5" );
+
+
+  class CDatabaseConfig extends CObject
+***************
+*** 29,34 ****
+--- 32,40 ----
+  							"CDBMysql",
+  							"CDBPgsql",
+  							"CDBTextsql",
++ 							"CDBSqlite",
++ 							"CDBPdo_sqlite",
++ 							"CDBSqlite3"
+  							);
+
+
+diff -cNr cheetan-org/db/pdo_sqlite.php cheetan/db/pdo_sqlite.php
+*** cheetan-org/db/pdo_sqlite.php	1970-01-01 09:00:00.000000000 +0900
+--- cheetan/db/pdo_sqlite.php	2009-11-30 21:12:01.000000000 +0900
+***************
+*** 0 ****
+--- 1,140 ----
++ <?php
++ /*-----------------------------------------------------------------------------
++ cheetan is licensed under the MIT license.
++ copyright (c) 2006 cheetan all right reserved.
++ http://php.cheetan.net/
++ -----------------------------------------------------------------------------*/
++ class CDBPdo_sqlite extends CDBCommon
++ {
++ 	var $conn = '';
++
++ 	function connect( $config )
++ 	{
++ 		$this->conn = new PDO( 'sqlite:'.$config['db'] );
++ 		return $this->conn;
++ 	}
++
++
++ 	function query( $query, $connect )
++ 	{
++ 		$this->last_query	= $query;
++ 	    list($usec, $sec)	= explode( ' ', microtime() );
++ 		$time				= (float)$sec + (float)$usec;
++ 		$res				= $connect->query( $query );
++ 	    list($usec, $sec)	= explode( ' ', microtime() );
++ 		$this->query_time	= ( (float)$sec + (float)$usec ) - $time;
++ 		if( $res )
++ 		{
++ 			if( $last_insert_id = $connect->lastInsertId() )
++ 			{
++ 				$this->last_insert_id	= $last_insert_id;
++ 			}
++ 			if( $affected = $res->rowCount() )
++ 			{
++ 				$this->affected_rows	= $affected;
++ 			}
++ 		}
++ 		else
++ 		{
++ 			$err				= $connect->errorInfo();
++ 			$this->last_error	= $err[2];
++ 		}
++ 		$this->_push_log();
++ 		return $res;
++ 	}
++
++
++ 	function find( $query, $connect )
++ 	{
++ 		$ret	= array();
++ 		if( $res = $this->query( $query, $connect ) )
++ 		{
++ 			while( $row = $res->fetch( PDO::FETCH_ASSOC ) )
++ 			{
++ 				array_push( $ret, $row );
++ 			}
++ 		}
++
++ 		return $ret;
++ 	}
++
++
++ 	function count( $query, $connect )
++ 	{
++ 		if( $res = $this->query( $query, $connect ) )
++ 		{
++ 			return $res->columnCount();
++ 		}
++
++ 		return 0;
++ 	}
++
++
++ 	function field( $field )
++ 	{
++ 		return $field;
++ 	}
++
++
++ 	function escape( $str )
++ 	{
++ 		$str = $this->conn->quote( $str );
++ 		return substr( $str, 1, strlen( $str ) - 2 );
++ 	}
++
++
++ 	function describe($connect, $table) {
++ 		$fields = $this->find("PRAGMA table_info($table)", $connect);
++ 		$results = array();
++ 		foreach ($fields as $field) {
++ 			$results[$field['name']] = array(
++ 				'type'		=> $this->column($field['type']),
++ 				'length'	=> $this->length($field['type']),
++ 				'null'		=> $field['notnull'] ? TRUE : FALSE,
++ 				'default'	=> $field['dflt_value'] ? $field['dflt_value'] : NULL,
++ 				'values'	=> NULL,
++ 			);
++ 		}
++ 		return $results;
++ 	}
++
++
++ 	function column($real) {
++ 		if (is_array($real)) {
++ 			$col = strtolower($real['name']);
++ 			if (isset($real['limit'])) {
++ 				$col .= '(' . $real['limit'] . ')';
++ 			}
++ 			return $col;
++ 		}
++
++ 		$col = str_replace(')', '', $real);
++ 		$limit = NULL;
++ 		$col = strtolower($col);
++ 		@list($col, $limit) = explode('(', $col);
++
++ 		if (in_array($col, array('date', 'time', 'datetime', 'timestamp'))) {
++ 			return $col;
++ 		}
++ 		if ($col == 'boolean') {
++ 			return 'boolean';
++ 		}
++ 		if ($col == 'integer') {
++ 			return 'integer';
++ 		}
++ 		if (strpos($col, 'char') !== FALSE) {
++ 			return 'string';
++ 		}
++ 		if ($col == 'text') {
++ 			return 'text';
++ 		}
++ 		if ($col == 'blob') {
++ 			return 'binary';
++ 		}
++ 		if (in_array($col, array('float', 'real', 'numeric'))) {
++ 			return 'float';
++ 		}
++ 		return 'text';
++ 	}
++ }
++ ?>
+diff -cNr cheetan-org/db/sqlite.php cheetan/db/sqlite.php
+*** cheetan-org/db/sqlite.php	1970-01-01 09:00:00.000000000 +0900
+--- cheetan/db/sqlite.php	2009-11-30 21:12:01.000000000 +0900
+***************
+*** 0 ****
+--- 1,140 ----
++ <?php
++ /*-----------------------------------------------------------------------------
++ cheetan is licensed under the MIT license.
++ copyright (c) 2006 cheetan all right reserved.
++ http://php.cheetan.net/
++ -----------------------------------------------------------------------------*/
++ class CDBSqlite extends CDBCommon
++ {
++ 	function connect( $config )
++ 	{
++ 		$connect = sqlite_open( $config['db'], 0666 );
++ 		return $connect;
++ 	}
++
++
++ 	function query( $query, $connect )
++ 	{
++ 		$this->last_query	= $query;
++ 	    list($usec, $sec)	= explode( ' ', microtime() );
++ 		$time				= (float)$sec + (float)$usec;
++ 		$res				= sqlite_query( $connect, $query, SQLITE_ASSOC );
++ 	    list($usec, $sec)	= explode( ' ', microtime() );
++ 		$this->query_time	= ( (float)$sec + (float)$usec ) - $time;
++ 		if( $res )
++ 		{
++ 			if( $last_insert_id = sqlite_last_insert_rowid( $connect ) )
++ 			{
++ 				$this->last_insert_id	= $last_insert_id;
++ 			}
++ 			if( $affected = sqlite_changes( $connect ) )
++ 			{
++ 				$this->affected_rows	= $affected;
++ 			}
++ 		}
++ 		else
++ 		{
++ 			$this->last_error	= sqlite_error_string( sqlite_last_error( $connect ) );
++ 		}
++ 		$this->_push_log();
++ 		return $res;
++ 	}
++
++
++ 	function find( $query, $connect )
++ 	{
++ 		$ret	= array();
++ 		if( $res = $this->query( $query, $connect ) )
++ 		{
++ 			while( $row = sqlite_fetch_array( $res, SQLITE_ASSOC ) )
++ 			{
++ 				array_push( $ret, $row );
++ 			}
++ 		}
++
++ 		return $ret;
++ 	}
++
++
++ 	function count( $query, $connect )
++ 	{
++ 		if( $res = $this->query( $query, $connect ) )
++ 		{
++ 			return sqlite_num_rows( $res );
++ 		}
++
++ 		return 0;
++ 	}
++
++
++ 	function field( $field )
++ 	{
++ 		return $field;
++ 	}
++
++ 	function escape( $str )
++ 	{
++ 		if( function_exists( 'sqlite_escape_string' ) )
++ 		{
++ 			return sqlite_escape_string( $str );
++ 		}
++
++ 		return $str;
++ 	}
++
++
++ 	function describe($connect, $table) {
++ 		$fields = $this->find("PRAGMA table_info($table)", $connect);
++ 		$results = array();
++ 		foreach ($fields as $field) {
++ 			$results[$field['name']] = array(
++ 				'type'		=> $this->column($field['type']),
++ 				'length'	=> $this->length($field['type']),
++ 				'null'		=> $field['notnull'] ? TRUE : FALSE,
++ 				'default'	=> $field['dflt_value'] ? $field['dflt_value'] : NULL,
++ 				'values'	=> NULL,
++ 			);
++ 		}
++ 		return $results;
++ 	}
++
++
++ 	function column($real) {
++ 		if (is_array($real)) {
++ 			$col = strtolower($real['name']);
++ 			if (isset($real['limit'])) {
++ 				$col .= '(' . $real['limit'] . ')';
++ 			}
++ 			return $col;
++ 		}
++
++ 		$col = str_replace(')', '', $real);
++ 		$limit = NULL;
++ 		$col = strtolower($col);
++ 		@list($col, $limit) = explode('(', $col);
++
++ 		if (in_array($col, array('date', 'time', 'datetime', 'timestamp'))) {
++ 			return $col;
++ 		}
++ 		if ($col == 'boolean') {
++ 			return 'boolean';
++ 		}
++ 		if ($col == 'integer') {
++ 			return 'integer';
++ 		}
++ 		if (strpos($col, 'char') !== FALSE) {
++ 			return 'string';
++ 		}
++ 		if ($col == 'text') {
++ 			return 'text';
++ 		}
++ 		if ($col == 'blob') {
++ 			return 'binary';
++ 		}
++ 		if (in_array($col, array('float', 'real', 'numeric'))) {
++ 			return 'float';
++ 		}
++ 		return 'text';
++ 	}
++ }
++ ?>
+diff -cNr cheetan-org/db/sqlite3.php cheetan/db/sqlite3.php
+*** cheetan-org/db/sqlite3.php	1970-01-01 09:00:00.000000000 +0900
+--- cheetan/db/sqlite3.php	2009-11-30 21:15:27.000000000 +0900
+***************
+*** 0 ****
+--- 1,123 ----
++ <?php
++ /*-----------------------------------------------------------------------------
++ cheetan is licensed under the MIT license.
++ copyright (c) 2006 cheetan all right reserved.
++ http://php.cheetan.net/
++ -----------------------------------------------------------------------------*/
++ class CDBSqlite3 extends CDBCommon
++ {
++ 	var $conn = '';
++
++ 	function connect( $config )
++ 	{
++ 		$this->conn = new SQLite3( $config['db'] );
++ 		return $this->conn;
++ 	}
++
++
++ 	function query( $query, $connect )
++ 	{
++ 		$this->last_query	= $query;
++ 	    list($usec, $sec)	= explode( ' ', microtime() );
++ 		$time				= (float)$sec + (float)$usec;
++ 		$res				= $connect->query( $query );
++ 	    list($usec, $sec)	= explode( ' ', microtime() );
++ 		$this->query_time	= ( (float)$sec + (float)$usec ) - $time;
++ 		if( $res )
++ 		{
++ 			if( $last_insert_id = $connect->lastInsertRowID() )
++ 			{
++ 				$this->last_insert_id	= $last_insert_id;
++ 			}
++ 			if( $affected = $connect->changes() )
++ 			{
++ 				$this->affected_rows	= $affected;
++ 			}
++ 		}
++ 		else
++ 		{
++ 			$this->last_error	= $connect->lastErrorMsg();
++ 		}
++ 		$this->_push_log();
++ 		return $res;
++ 	}
++
++
++ 	function find( $query, $connect )
++ 	{
++ 		$ret	= array();
++ 		if( $res = $this->query( $query, $connect ) )
++ 		{
++ 			while( $row = $res->fetchArray( SQLITE3_ASSOC ) )
++ 			{
++ 				array_push( $ret, $row );
++ 			}
++ 		}
++
++ 		return $ret;
++ 	}
++
++
++ 	function count( $query, $connect )
++ 	{
++ 		if( $res = $this->query( $query, $connect ) )
++ 		{
++ 			return $res->numColumns();
++ 		}
++
++ 		return 0;
++ 	}
++
++
++ 	function field( $field )
++ 	{
++ 		return $field;
++ 	}
++
++
++ 	function escape( $str )
++ 	{
++ 		$str = $this->conn->escapeString( $str );
++ 		return $str;
++ 	}
++
++
++ 	function column($real) {
++ 		if (is_array($real)) {
++ 			$col = strtolower($real['name']);
++ 			if (isset($real['limit'])) {
++ 				$col .= '(' . $real['limit'] . ')';
++ 			}
++ 			return $col;
++ 		}
++
++ 		$col = str_replace(')', '', $real);
++ 		$limit = NULL;
++ 		$col = strtolower($col);
++ 		@list($col, $limit) = explode('(', $col);
++
++ 		if (in_array($col, array('date', 'time', 'datetime', 'timestamp'))) {
++ 			return $col;
++ 		}
++ 		if ($col == 'boolean') {
++ 			return 'boolean';
++ 		}
++ 		if ($col == 'integer') {
++ 			return 'integer';
++ 		}
++ 		if (strpos($col, 'char') !== FALSE) {
++ 			return 'string';
++ 		}
++ 		if ($col == 'text') {
++ 			return 'text';
++ 		}
++ 		if ($col == 'blob') {
++ 			return 'binary';
++ 		}
++ 		if (in_array($col, array('float', 'real', 'numeric'))) {
++ 			return 'float';
++ 		}
++ 		return 'text';
++ 	}
++ }
++ ?>

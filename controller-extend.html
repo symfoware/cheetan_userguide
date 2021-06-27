@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ちいたん ユーザガイド</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="css/userguide.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/site.css" />
+
+<meta http-equiv="expires" content="-1" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="robots" content="all" />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"></div></div>
+<div id="nav2"><a name="top"><br /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>ちいたん ユーザガイド Version 0.8.1.0</h1></td>
+<td id="breadcrumb_right"><a href="toc.html">目次</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="javascript:void(0);">ホーム</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a> &nbsp;&#8250;&nbsp;
+コントローラのオーバーライド
+</td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>コントローラのオーバーライド</h1>
+
+<p>
+コントローラクラスをオーバーライドしたい時に使用します。
+次のように宣言します。
+</p>
+<pre>
+function config_controller_class()
+{
+	class CMyController extends CController
+	{
+
+		:
+		:
+		:
+
+	}
+	return 'CMyController';
+}
+</pre>
+
+
+<h1>機能拡張: 例</h1>
+
+
+<h2>XSSフィルタリング</h2>
+
+<p>
+フォーム入力をクロスサイトスクリプティング（XSS）フィルタリングします。
+フィルタリングされたフォーム入力は、コントローラクラスの変数<var>$get</var>と<var>$post</var>、<var>$request</var>から取得することが出来ます。
+</p>
+
+<code>$name = $c-&gt;get['name'];</code>
+
+<p class="important">
+<strong>重要:</strong>&nbsp; グローバル変数の<var>$_GET</var>と<var>$_POST</var>、<var>$_REQUEST</var>はXSSフィルタリングされません。
+</p>
+<pre>
+class CMyController extends CController
+{
+	function RequestHandle()
+	{
+		$get	 = $this-&gt;_sanitize( $_GET );
+		$post	 = $this-&gt;_sanitize( $_POST );
+		$request = $this-&gt;_sanitize( $_REQUEST );
+
+		if ( count( $get ) )	 $this-&gt;get 	= $get;
+		if ( count( $post ) )	 $this-&gt;post	= $post;
+		if ( count( $request ) ) $this-&gt;request	= $request;
+		$this-&gt;ModelItemHandle( $get );
+		$this-&gt;ModelItemHandle( $post );
+	}
+
+	function _sanitize( $request )
+	{
+		$request = is_array( $request ) ?
+			array_map( array( get_class( $this ), '_sanitize'), $request ) :
+			htmlentities( $request, ENT_QUOTES, mb_internal_encoding() );
+
+		return $request;
+	}
+}
+</pre>
+
+
+<h2>フォーム入力の多次元配列による取得</h2>
+
+<p>
+ちいたんは標準でフォーム入力を二次元配列で取得します。これを多次元配列に拡張します。
+</p>
+<pre>
+class CMyController extends CController
+{
+	function ModelItemHandle( $requests )
+	{
+		foreach( $requests as $key =&gt; $request ) {
+			if( strpos( $key, '/' ) !== FALSE ) {
+				$model = explode( '/', $key );
+				$num = count( $model );
+				$str = '$this-&gt;data';
+				for ( $loop = 0; $loop &lt; $num; $loop++ ) {
+					$str .= '[$model[' . $loop . ']]';
+				}
+				$str .= "='{$request}';";
+				eval( $str );
+			}
+		}
+	}
+}
+</pre>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+前のトピック:&nbsp;&nbsp;<a href="controller-extend.html"></a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="controller-extend.html#top">ページトップ</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+次のトピックス:&nbsp;&nbsp;<a href="view-extend.html">ビューのオーバーライド</a>
+</p>
+<p><a href="http://php.cheetan.net/">Cheetan</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://www.alphabrend.com/">Alphabrend</a><br />Powered by CodeIgniter Documents CSS.</p>
+</div>
+
+<script type="text/javascript"><!--
+var fc2footerparam = 'charset=' + (document.charset ? document.charset : document.characterSet) + '&url=' + document.location + '&service=0&r=' + Math.floor(Math.random()*99999999999);
+var fc2footertag = '<' + 'script src="//vip.chps-api.fc2.com/apis/footer/?' + fc2footerparam + '" charset="UTF-8"><' + '/script>';
+document.write(fc2footertag);
+//--></script>
+<!-- FC2, inc.-->
+<img src="http://media.fc2.com/counter_img.php?id=50" style="visibility:hidden" alt="inserted by FC2 system" width="0" height="0">
+<!-- FC2, inc.-->
+</body>
+</html>

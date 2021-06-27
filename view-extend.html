@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ちいたん ユーザガイド</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="css/userguide.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/site.css" />
+
+<meta http-equiv="expires" content="-1" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="robots" content="all" />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"></div></div>
+<div id="nav2"><a name="top"><br /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>ちいたん ユーザガイド Version 0.8.1.0</h1></td>
+<td id="breadcrumb_right"><a href="toc.html">目次</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="javascript:void(0);">ホーム</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a> &nbsp;&#8250;&nbsp;
+ビューのオーバーライド
+</td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>ビューのオーバーライド</h1>
+
+<p>
+ビュークラスをオーバーライドしたい時に使用します。
+次のように宣言します。
+</p>
+<pre>
+function config_view_class()
+{
+	class CMyView extends CView
+	{
+
+		:
+		:
+		:
+
+	}
+	return 'CMyView';
+}
+</pre>
+
+
+<h1>機能拡張: 例</h1>
+
+
+<h2>ロギング</h2>
+
+<p>
+SQLログをXHTMLに準拠したテーブル表示に変更します。
+</p>
+
+<pre>
+class CMyView extends CView
+{
+	function SetSqlLog( $sqllog )
+	{
+		if( $this-&gt;debug )
+		{
+			$log	= '&lt;table class="cheetan_sql_log"&gt;' . "\n"
+					. '&lt;tr&gt;'
+					. '&lt;th style="width:60%;"&gt;SQL&lt;/th&gt;'
+					. '&lt;th style="width:10%;"&gt;ERROR&lt;/th&gt;'
+					. '&lt;th style="width:10%;"&gt;ROWS&lt;/th&gt;'
+					. '&lt;th style="width:10%;"&gt;TIME&lt;/th&gt;'
+					. '&lt;/tr&gt;' . "\n";
+			foreach( $sqllog as $name =&gt; $rows )
+			{
+				$log	.= '&lt;tr&gt;&lt;td colspan="4"&gt;&lt;strong&gt;' . htmlspecialchars( $name, ENT_QUOTES, SYS_ENCODE ) . '&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;';
+				foreach( $rows as $i =&gt; $row )
+				{
+					$log	.= '&lt;tr&gt;'
+							. '&lt;td style="text-align:left;"&gt;' . htmlspecialchars( $row['query'], ENT_QUOTES, SYS_ENCODE ) . '&lt;/td&gt;'
+							. '&lt;td style="text-align:left;"&gt;' . htmlspecialchars( $row['error'], ENT_QUOTES, SYS_ENCODE ) . '&lt;/td&gt;'
+							. '&lt;td style="text-align:center;"&gt;' . $row['affected_rows'] . '&lt;/td&gt;'
+							. '&lt;td style="text-align:center;"&gt;' . sprintf( '%.5f', $row['query_time'] ) . '&lt;/td&gt;'
+							. '&lt;/tr&gt;' . "\n";
+				}
+			}
+			$log	.= '&lt;/table&gt;' . "\n";
+			$this-&gt;variables['cheetan_sql_log'] = $log;
+		}
+	}
+}
+</pre>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+前のトピック:&nbsp;&nbsp;<a href="controller-extend.html">コントローラのオーバーライド</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="view-extend.html#top">ページトップ</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+次のトピックス:&nbsp;&nbsp;<a href="component.html">コンポーネント</a>
+</p>
+<p><a href="http://php.cheetan.net/">Cheetan</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://www.alphabrend.com/">Alphabrend</a><br />Powered by CodeIgniter Documents CSS.</p>
+</div>
+
+<script type="text/javascript"><!--
+var fc2footerparam = 'charset=' + (document.charset ? document.charset : document.characterSet) + '&url=' + document.location + '&service=0&r=' + Math.floor(Math.random()*99999999999);
+var fc2footertag = '<' + 'script src="//vip.chps-api.fc2.com/apis/footer/?' + fc2footerparam + '" charset="UTF-8"><' + '/script>';
+document.write(fc2footertag);
+//--></script>
+<!-- FC2, inc.-->
+<img src="http://media.fc2.com/counter_img.php?id=50" style="visibility:hidden" alt="inserted by FC2 system" width="0" height="0">
+<!-- FC2, inc.-->
+</body>
+</html>

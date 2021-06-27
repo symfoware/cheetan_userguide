@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ちいたん ユーザガイド</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="css/userguide.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/site.css" />
+
+<meta http-equiv="expires" content="-1" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="robots" content="all" />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"></div></div>
+<div id="nav2"><a name="top"><br /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>ちいたん ユーザガイド Version 0.8.1.0</h1></td>
+<td id="breadcrumb_right"><a href="toc.html">目次</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="javascript:void(0);">ホーム</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a> &nbsp;&#8250;&nbsp;
+アクションコントローラ
+</td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>アクションコントローラ</h1>
+
+<p>
+処理をひとつひとつのファイルアクセスでなく、CakePHP風にコントローラー内のアクションメソッドとして、まとめて記述する仕様にちいたんを拡張したサンプルです。
+サンプルのブログを流用しておりますので違いを見比べてみて頂けると良いと思います。
+</p>
+<p>
+とりあえず初期設定
+</p>
+
+<ul>
+<li>必要であれば<dfn>.htaccess</dfn>に<kbd>RewriteBase</kbd>を追加</li>
+<li><dfn>lib/config/database.php</dfn>を修正</li>
+</ul>
+
+<p>
+上記設定すれば既存のブログサンプルが入っている環境であればそのまま動くと思います。
+</p>
+
+<p>
+ファイル構造としては、全て<dfn>lib</dfn>ディレクトリ内に納めています。<br />
+ディレクトリを見れば何が入っているかは分かると思います。
+</p>
+
+<p>
+<dfn>app_controller.php</dfn>は全てのコントローラから継承される基本のコントローラーです。
+こちらを利用して処理の共通化なども可能です。
+</p>
+
+<p>
+<dfn>controllers</dfn>ディレクトリにコントローラを入れておきます。
+</p>
+
+<h2>
+blog_data_controller.php
+</h2>
+<pre>
+class CBlog_dataController extends CAppController {
+    function index() {
+
+    }
+    function edit($id = null) {
+        $this-&gt;blog_data-&gt;findone(array('id' =&gt; $id));
+    }
+}
+</pre>
+
+<p>
+例えば<br />
+<kbd>/blog_data/index</kbd><br />
+にアクセスすると、<br />
+<dfn>controllers/blog_data_controller.php</dfn><br />
+が読み込まれ、その中の<br />
+<kbd>CBlog_dataController</kbd><br />
+が読み出され、<kbd>index</kbd>メソッドが呼ばれます。
+</p>
+
+<p>
+記述すべき処理は今までと同じです。<br />
+しかしコントローラー内の記述となるので、今まで<br />
+<kbd>$c</kbd><br />
+と記述していた箇所は<br />
+<kbd>$this</kbd><br />
+と直接コントローラーメソッドを呼び出す形に変更となります。
+</p>
+
+<p>
+例えば<br />
+<kbd>/blog_data/edit/112</kbd><br />
+にアクセスすると、<br />
+<kbd>edit</kbd>メソッドが呼ばれますが、<br />
+引数として<var>112</var>が指定されます。<br />
+上の例だと<kbd>$id</kbd>に<var>112</var>がはいる形になります。
+</p>
+
+<h2>
+htmlコンポーネント
+</h2>
+<pre>
+&lt;?php echo $c-&gt;html-&gt;url('/blog_data/index'); ?&gt;
+</pre>
+
+<p>
+今回のURL形式ですと相対URLなどを記述するのが難しいため、<br />
+<dfn>htmlコンポーネント</dfn>を作成致しました。<br />
+上記の形で指定したURLに飛ぶことが出来ます。<br />
+詳細はテンプレートをご覧下さい。
+</p>
+
+<p>
+テンプレートは、<dfn>views/blog_data</dfn>にblog_dataコントローラのテンプレートが入ります。<br />
+共通テンプレートは<dfn>views/layouts/default.html</dfn>になります。
+</p>
+
+<p>
+mod_rewriteでURL書き換えを行っています。<br />
+例えばtestという公開ディレクトリに<dfn>.htaccess</dfn>と<dfn>index.php</dfn>がある場合、<br />
+ブラウザ上では<br />
+<kbd>test/blog_data/index</kbd><br />
+といった形で閲覧できます。
+</p>
+
+<p>
+上記のようにしたくない場合は<dfn>.htaccess</dfn>を削除し、<br />
+<kbd>index.php?url=blog_data/index</kbd><br />
+みたいな感じで閲覧できると思います。
+</p>
+
+<h2>
+.htaccessのサンプル
+</h2>
+
+<pre>
+&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On
+    RewriteBase /actioncontroller/
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+&lt;/IfModule&gt;
+</pre>
+
+<p>
+<a href="http://php.cheetan.net/projects/download.php?id=22">ダウンロード</a>
+</p>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+前のトピック:&nbsp;&nbsp;<a href="component.html">コンポーネント</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="actioncontroller.html#top">ページトップ</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+次のトピックス:&nbsp;&nbsp;<a href="actioncontroller.html"></a>
+</p>
+<p><a href="http://php.cheetan.net/">Cheetan</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://www.alphabrend.com/">Alphabrend</a><br />Powered by CodeIgniter Documents CSS.</p>
+</div>
+
+<script type="text/javascript"><!--
+var fc2footerparam = 'charset=' + (document.charset ? document.charset : document.characterSet) + '&url=' + document.location + '&service=0&r=' + Math.floor(Math.random()*99999999999);
+var fc2footertag = '<' + 'script src="//vip.chps-api.fc2.com/apis/footer/?' + fc2footerparam + '" charset="UTF-8"><' + '/script>';
+document.write(fc2footertag);
+//--></script>
+<!-- FC2, inc.-->
+<img src="http://media.fc2.com/counter_img.php?id=50" style="visibility:hidden" alt="inserted by FC2 system" width="0" height="0">
+<!-- FC2, inc.-->
+</body>
+</html>

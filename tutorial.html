@@ -1,0 +1,393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ちいたん ユーザガイド</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="css/userguide.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/site.css" />
+
+<meta http-equiv="expires" content="-1" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="robots" content="all" />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"></div></div>
+<div id="nav2"><a name="top"><br /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>ちいたん ユーザガイド Version 0.8.1.0</h1></td>
+<td id="breadcrumb_right"><a href="toc.html">目次</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="javascript:void(0);">ホーム</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a> &nbsp;&#8250;&nbsp;
+チュートリアル
+</td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>チュートリアル</h1>
+
+<p>
+ブログを作成する例を見ながら、以下を参考にちいたんフレームワークの何を、どのように使用するかを決定しましょう。
+</p>
+
+
+<h2>データベースを使う</h2>
+
+<p>
+現在ちいたんフレームワークはMySQL, PostgreSQL, TextSQLに対応しています（その他にも柔軟に対応可能）。
+チュートリアルではMySQLでの説明をします。
+データベースの初期化は、フレームワークによって呼ばれる<kbd>config_database</kbd>関数によって設定します。
+以下に例を示します。
+</p>
+<p>
+どのファイルからも参照できるように<kbd>config.php</kbd>というコンフィグファイルを作成してそこに関数を書きます。
+</p>
+
+<h3>config.php</h3>
+
+<pre>
+&lt;?php
+function config_database( &amp;$db )
+{
+	$db-&gt;add( '', 'localhost', 'user', 'password', 'dbname' );
+}
+</pre>
+
+
+<h2>モデルを使う</h2>
+
+<p>
+モデルはテーブルを扱うクラスです。これを用意するだけでソースを書く必要が無くなります。
+試してみましょう。
+</p>
+<p>
+まずブログ用に以下の様なテーブルを作成します。
+</p>
+
+<pre>
+CREATE TABLE `blog_data` (
+ `id` int(11) NOT NULL auto_increment,
+ `title` text NOT NULL,
+ `body` text NOT NULL,
+ `modified` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+ PRIMARY KEY  (`id`)
+);
+</pre>
+
+
+<p>
+次にモデルを作成します。
+判りやすいように<dfn>models</dfn>フォルダ内にでも入れておきましょう。
+</p>
+
+<h3>models/blog_data.php</h3>
+
+<pre>
+&lt;?php
+class CBlog_data extends CModel
+{
+}
+</pre>
+
+
+<p>
+あれ、何も書いてない…そうなんです。
+これだけでデータベースの読み書きが出来てしまいます。
+どのように行うかは後のお楽しみ。
+びっくりするほど簡単です。
+</p>
+<p>
+では、このモデルを使用するために、<kbd>config.php</kbd>内にフレームワークから呼ばれる関数を追加しましょう。
+</p>
+
+
+<h3>config.php追加分</h3>
+
+<pre>
+function config_models( &amp;$controller )
+{
+	$controller-&gt;AddModel( dirname( __FILE__ ) . '/models/blog_data.php' );
+}
+</pre>
+
+
+<h2>ビューを使う</h2>
+
+<p>
+ビューは表示部分です。実際のHTMLを書きます。
+HTMLを書くにはなんとこれだけの方法が用意されています。
+</p>
+
+<ul>
+<li>PHPファイルに直接書く</li>
+<li>smartyの用にPHPファイルとテンプレートを分ける（構文解析が無い分恐らく高速）</li>
+<li>全ファイル共通のテンプレートを用意し、コンテンツ部分をPHPファイルに直接書く</li>
+<li>全ファイル共通のテンプレートを用意し、PHPファイルとテンプレートを分ける</li>
+</ul>
+
+<p>
+詳しくはマニュアルのビューにて解説しています。
+今回は４番目の全ファイル共通のテンプレートを用意し、PHPファイルとテンプレートを分ける方法を使用します。
+</p>
+<p>
+まず全ファイル共通テンプレートを用意しましょう。
+</p>
+
+<h3>template.html</h3>
+
+<pre>
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+  &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;ja&quot; lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+&lt;title&gt;ちいたんブログ&lt;/title&gt;
+&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php echo $this-&gt;content();?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>
+とまあ、こんなものでしょうか。
+今回の場合<kbd>$this-&gt;content();</kbd>のところに各ページのコンテンツが表示されます。
+</p>
+
+<p>
+続いてブログを書き込むページを用意します。
+共通テンプレートを使用しているので中身だけです。
+</p>
+
+<h3>add.html</h3>
+
+<pre>
+&lt;form method=&quot;post&quot; action=&quot;add.php&quot;&gt;
+タイトル&lt;br /&gt;
+&lt;input type=&quot;text&quot; name=&quot;blog/title&quot; /&gt;&lt;br /&gt;
+内容&lt;br /&gt;
+&lt;textarea cols=&quot;40&quot; rows=&quot;8&quot; name=&quot;blog/body&quot;&gt;&lt;/textarea&gt;&lt;br /&gt;
+&lt;input type=&quot;submit&quot; value=&quot;書き込み&quot; /&gt;
+&lt;/form&gt;
+</pre>
+
+
+<h2>コントローラーを使う</h2>
+
+<p>
+コントローラーにより今まで作成したモデル、ビュー全てを連結し、動作させます。
+ファイルは何の指定もなければビューの拡張子を<kbd>.php</kbd>に変えたものです。
+</p>
+<p>
+まずは先ほどビューで作成したフォームにより、データを保存するプログラムがどれだけ少ないかご覧下さい。
+</p>
+
+<h3>add.php</h3>
+
+<pre>
+&lt;?php
+	require_once 'config.php';
+	require_once 'cheetan/cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;SetTemplateFile( 'template.html' );
+	if ( count( $_POST ) ) {
+		$c-&gt;blog_data-&gt;insert( $c-&gt;data['blog'] );
+	}
+}
+</pre>
+
+<p>
+blog_dataというモデルがここで使用されているのがおわかりでしょうか。
+ビューでインプットの名前に<kbd>blog/title</kbd>などという変な名前を指定していたのは、<kbd>blog/</kbd>で指定されているデータをコントローラ側で<var>$data['blog']</var>配列に自動的に挿入するためでした。
+</p>
+
+<p>
+こうやって必要なデータだけを配列に集め、insertします。
+</p>
+
+
+<h2>一覧表示</h2>
+
+<p>
+では書き込んだデータを一覧表示してみましょう。
+</p>
+
+<h3>view.php</h3>
+
+<pre>
+&lt;?php
+	require_once 'config.php';
+	require_once 'cheetan/cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;SetTemplateFile( 'template.html' );
+	$c-&gt;set( 'datas', $c-&gt;blog_data-&gt;find() );
+}
+</pre>
+
+<h3>view.html</h3>
+
+<pre>
+&lt;?php foreach( $data['datas'] as $data ){ ?&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;?php echo $data['title'];?&gt;&lt;/td&gt;
+&lt;td&gt;&lt;?php echo str_replace( &quot;¥n&quot;, '&lt;br /&gt;', $data['body'] );?&gt;&lt;/td&gt;
+&lt;td&gt;&lt;?php echo $data['modified'];?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;?php } ?&gt;
+</pre>
+
+<p>
+このように<kbd>set</kbd>関数によりビュー内で値を<var>$data</var>として参照することが出来ます。
+</p>
+
+
+<h2>データの編集</h2>
+
+<p>
+ではデータを編集してみましょう。
+</p>
+
+<h3>edit.php</h3>
+
+<pre>
+&lt;?php
+	require_once 'config.php';
+	require_once 'cheetan/cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;SetTemplateFile( 'template.html' );
+	if ( count( $_POST ) ) {
+		$c-&gt;blog_data-&gt;update( $c-&gt;data['blog'] );
+	}
+	$c-&gt;set( 'data', $c-&gt;blog_data-&gt;findone( 'id=' . $_GET['id'] ) );
+}
+</pre>
+
+<h3>edit.html</h3>
+
+<pre>
+&lt;form method=&quot;post&quot; action=&quot;edit.php&quot;&gt;
+タイトル&lt;br /&gt;
+&lt;input type=&quot;text&quot; name=&quot;blog/title&quot; value=&quot;&lt;?php echo $data['data']['title'];?&gt;&quot; /&gt;&lt;br /&gt;
+内容&lt;br /&gt;
+&lt;textarea cols=&quot;40&quot; rows=&quot;6&quot; name=&quot;blog/body&quot;&gt;&lt;?php echo $data['data']['body'];?&gt;&lt;/textarea&gt;&lt;br /&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;blog/id&quot; value=&quot;&lt;?php echo $data['data']['id'];?&gt;&quot; /&gt;
+&lt;input type=&quot;submit&quot; value=&quot;更新&quot; /&gt;
+&lt;/form&gt;
+</pre>
+
+
+<h2>データの削除</h2>
+
+<p>
+ではデータを削除してみましょう。
+もうある程度予想がつきますね。
+</p>
+
+<h3>del.php</h3>
+
+<pre>
+&lt;?php
+	require_once 'config.php';
+	require_once 'cheetan/cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;SetTemplateFile( 'template.html' );
+	if ( count( $_POST ) ) {
+		$c-&gt;blog_data-&gt;del( 'id=' . $_POST['id'] );
+	}
+	$c-&gt;set( 'data', $c-&gt;blog_data-&gt;findone( 'id=' . $_GET['id'] ) );
+}
+</pre>
+
+<h3>del.html</h3>
+
+<pre>
+&lt;form method=&quot;post&quot; action=&quot;del.php&quot;&gt;
+削除してもよろしいですか？&lt;br /&gt;
+タイトル&lt;br /&gt;
+&lt;?php echo $data['data']['title'];?&gt;&lt;br /&gt;
+内容&lt;br /&gt;
+&lt;?php echo $data['data']['body'];?&gt;&lt;br /&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;&lt;?php echo $data['data']['id'];?&gt;&quot; /&gt;
+&lt;input type=&quot;submit&quot; value=&quot;削除&quot; /&gt;
+&lt;/form&gt;
+</pre>
+
+
+<h2>まとめ</h2>
+
+<p>
+これで一通りブログっぽくなりました。このように非常に簡単にアプリケーションを作成することが出来ます。
+もうフレームワークを使わないプログラムややモデルのないフレームワークなんて使う気になれませんよね？
+</p>
+<p>
+ちいたんフレームワークにはもうちょっと便利な機能が用意されています。
+是非マニュアルを参考に色々と試してみてください。
+</p>
+
+
+<h2>サンプル</h2>
+
+<p>
+今回のチュートリアルを形にしたものは<a href="http://php.cheetan.net/sample/blog.php">こちら</a>。
+</p>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+<a href="tutorial.html#top">ページトップ</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+次のトピック:&nbsp;&nbsp;<a href="configfile.html">コンフィグファイル</a>
+</p>
+<p><a href="http://php.cheetan.net/">Cheetan</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://www.alphabrend.com/">Alphabrend</a><br />Powered by CodeIgniter Documents CSS.</p>
+</div>
+
+<script type="text/javascript"><!--
+var fc2footerparam = 'charset=' + (document.charset ? document.charset : document.characterSet) + '&url=' + document.location + '&service=0&r=' + Math.floor(Math.random()*99999999999);
+var fc2footertag = '<' + 'script src="//vip.chps-api.fc2.com/apis/footer/?' + fc2footerparam + '" charset="UTF-8"><' + '/script>';
+document.write(fc2footertag);
+//--></script>
+<!-- FC2, inc.-->
+<img src="http://media.fc2.com/counter_img.php?id=50" style="visibility:hidden" alt="inserted by FC2 system" width="0" height="0">
+<!-- FC2, inc.-->
+</body>
+</html>

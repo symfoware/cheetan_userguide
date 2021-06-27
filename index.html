@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ちいたん ユーザガイド</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="css/userguide.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/site.css" />
+
+<meta http-equiv="expires" content="-1" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="robots" content="all" />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"></div></div>
+<div id="nav2"><a name="top"><br /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>ちいたん ユーザガイド Version 0.8.1.0</h1></td>
+<td id="breadcrumb_right"><a href="toc.html">目次</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="javascript:void(0);">ホーム</a> &nbsp;&#8250;&nbsp;
+ユーザガイド ホーム
+</td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+
+<h2>ちいたんへようこそ</h2>
+
+<p>
+ちいたんはMITライセンスで配布されている<strong>世界最軽量</strong>のPHP用MVCフレームワークです。
+</p>
+
+
+<h2>ちいたんの特徴</h2>
+
+<ul>
+<li>最小ソースコードはこれだけです。
+<table class="source" cellpadding="0" cellspacing="10" border="0" width="100%">
+<tr><td valign="top" width="50%">
+<p>１ファイルの場合</p>
+<pre>
+----hello.php----
+&lt;?php
+	require_once 'cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;set( 'msg', 'Hello, World!' );
+}
+?&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;&lt;?php echo $data['msg'];?&gt;&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+
+</pre>
+</td><td valign="top" width="50%">
+<p>テンプレート使用の場合</p>
+<pre>
+----hello.php----
+&lt;?php
+	require_once 'cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;set( 'msg', 'Hello, World!' );
+}
+?&gt;
+
+
+----hello.html----
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;&lt;?php echo $data['msg'];?&gt;&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</td></tr>
+</table>
+</li>
+
+<li>テンプレートも使えます。
+<table class="source" cellpadding="0" cellspacing="10" border="0" width="100%">
+<tr><td valign="top" width="50%">
+<p>１ファイルの場合</p>
+<pre>
+----temp.html----
+&lt;html&gt;
+&lt;body&gt;
+&lt;?php contents( $data );?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+----hello.php----
+&lt;?php
+	require_once 'cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;SetTemplateFile( 'temp.html' );
+	$c-&gt;set( 'msg', 'Hello, World!' );
+}
+
+function contents( $data )
+{
+?&gt;
+&lt;h1&gt;&lt;?php echo $data['msg'];?&gt;&lt;/h1&gt;
+&lt;?php
+}
+?&gt;
+</pre>
+</td><td valign="top" width="50%">
+<p>テンプレート使用の場合</p>
+<pre>
+----temp.html----
+&lt;html&gt;
+&lt;body&gt;
+&lt;?php $this-&gt;content();?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+----hello.php----
+&lt;?php
+	require_once 'cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;SetTemplateFile( 'temp.html' );
+	$c-&gt;set( 'msg', 'Hello, World!' );
+}
+?&gt;
+
+
+----hello.html----
+&lt;h1&gt;&lt;?php echo $data['msg'];?&gt;&lt;/h1&gt;
+
+
+
+</pre>
+</td></tr>
+</table>
+</li>
+<li>モデルも完備。
+<table class="source" cellpadding="0" cellspacing="10" border="0" width="100%">
+<tr><td valign="top" width="50%">
+<pre>
+----config.php----
+function config_database( &amp;$db )
+{
+	$db-&gt;add( '', 'localhost', 'user', 'password', 'db' );
+}
+
+function config_models( &amp;$controller )
+{
+	$controller-&gt;AddModel( 'user.php' );
+}
+
+
+----user.php----
+class CUser extends CModel
+{
+
+}
+
+
+----test.php----
+&lt;?php
+	require_once 'config.php';
+	require_once 'cheetan.php';
+
+function action( &amp;$c )
+{
+	if ( count( $_POST ) ) {
+		$c-&gt;user-&gt;insert( $c-&gt;data['user'] );
+	}
+}
+?&gt;
+&lt;form method=&quot;post&quot; action=&quot;test.php&quot;&gt;
+名前&lt;br /&gt;
+&lt;input type=&quot;text&quot; name=&quot;user/name&quot; /&gt;&lt;br /&gt;
+メールアドレス&lt;br /&gt;
+&lt;input type=&quot;text&quot; name=&quot;user/email&quot; /&gt;
+&lt;/form&gt;
+</pre>
+</td></tr>
+</table>
+</li>
+</ul>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+<a href="index.html#top">ページトップ</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="toc.html">目次</a>
+</p>
+<p><a href="http://php.cheetan.net/">Cheetan</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://www.alphabrend.com/">Alphabrend</a><br />Powered by CodeIgniter Documents CSS.</p>
+</div>
+
+<script type="text/javascript"><!--
+var fc2footerparam = 'charset=' + (document.charset ? document.charset : document.characterSet) + '&url=' + document.location + '&service=0&r=' + Math.floor(Math.random()*99999999999);
+var fc2footertag = '<' + 'script src="//vip.chps-api.fc2.com/apis/footer/?' + fc2footerparam + '" charset="UTF-8"><' + '/script>';
+document.write(fc2footertag);
+//--></script>
+<!-- FC2, inc.-->
+<img src="http://media.fc2.com/counter_img.php?id=50" style="visibility:hidden" alt="inserted by FC2 system" width="0" height="0">
+<!-- FC2, inc.-->
+</body>
+</html>

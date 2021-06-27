@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ちいたん ユーザガイド</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="css/userguide.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/site.css" />
+
+<meta http-equiv="expires" content="-1" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="robots" content="all" />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"></div></div>
+<div id="nav2"><a name="top"><br /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>ちいたん ユーザガイド Version 0.8.1.0</h1></td>
+<td id="breadcrumb_right"><a href="toc.html">目次</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="javascript:void(0);">ホーム</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a> &nbsp;&#8250;&nbsp;
+ビュー
+</td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>ビュー</h1>
+
+<p>
+実際に表示するHTMLの記述にはいくつかの方法があります。
+状況に応じて好きなものを選択することが可能です。
+</p>
+
+<ul>
+<li>PHPファイルに直接書く</li>
+<li>smartyの用にPHPファイルとテンプレートを分ける（構文解析が無い分恐らく高速）</li>
+<li>全ファイル共通のテンプレートを用意し、コンテンツ部分をPHPファイルに直接書く</li>
+<li>全ファイル共通のテンプレートを用意し、PHPファイルとテンプレートを分ける</li>
+</ul>
+
+
+<h2>PHPファイルに直接書く</h2>
+
+<p>
+小さな個人用プログラムの場合はこちらが一番楽でしょう。
+</p>
+
+<h3>test.php</h3>
+
+<pre>
+&lt;?php
+	require_once 'cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;set( 'msg', 'Hello' );
+}
+?&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+  &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;ja&quot; lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+&lt;title&gt;テスト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;&lt;?php echo $data['msg'];?&gt;&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+<h2>PHPファイルとテンプレートを分ける</h2>
+
+<p>
+smartyのようにPHPのアクション部分と表示部分を分割します。
+構文解析は無いので速いです。
+</p>
+
+
+<h3>test.php</h3>
+
+<pre>
+&lt;?php
+	require_once 'cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;set( 'msg', 'Hello' );
+}
+?&gt;
+</pre>
+
+
+<h3>test.html</h3>
+
+<pre>
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+  &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;ja&quot; lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+&lt;title&gt;テスト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;&lt;?php echo $data['msg'];?&gt;&lt;/h1&gt;
+&lt;!-- この形式の場合以下も可能 --&gt;
+&lt;h2&gt;&lt;?php echo $msg;?&gt;&lt;/h2&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>
+何も設定を行わなければ同じフォルダ内の拡張子を<kbd>.html</kbd>に変更したものが使用されます。
+違うものを指定したい場合はコントローラの<kbd>SetViewFile(string filename)</kbd>を使用して下さい。
+</p>
+
+
+<h2>全ファイル共通のテンプレート + PHPファイルに直接書く</h2>
+
+<p>
+全てのページに共通のテンプレートファイルを使用することが出来ます。
+これにより各々のページにはコンテンツ部分のみを記述すればよいので作業が簡略化します。
+テンプレートファイルを指定するには、コントローラもしくはコンフィグ関数の中から<kbd>SetTemplateFile(string filename)</kbd>により指定して下さい。
+</p>
+
+
+<h3>template.html</h3>
+
+<pre>
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+  &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;ja&quot; lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+&lt;title&gt;テスト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php contents( $data );?&gt;
+&lt;!-- 共通テンプレートを使用する場合以下の形でsetした変数参照可能 --&gt;
+&lt;?php echo $msg;?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+<h3>test.php</h3>
+
+<pre>
+&lt;?php
+	require_once 'cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;set( 'msg', 'Hello' );
+}
+
+function contents( $data )
+{
+?&gt;
+&lt;h1&gt;&lt;?php echo $data{'msg'];?&gt;&lt;/h1&gt;
+&lt;?php
+}
+?&gt;
+</pre>
+
+
+<h2>全ファイル共通のテンプレート+PHPファイルとテンプレートを分ける</h2>
+
+<p>
+全てのページに共通のテンプレートファイルを使用し、なおかつアクション部分と表示部分を分けることが出来ます。
+上記と<kbd>template.html</kbd>の書き方が微妙に違うので注意して下さい。
+</p>
+
+
+<h3>template.html</h3>
+
+<pre>
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+  &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;ja&quot; lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+&lt;title&gt;テスト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php $this-&gt;content( $data );?&gt;
+&lt;!-- 共通テンプレートを使用する場合以下の形でsetした変数参照可能 --&gt;
+&lt;?php echo $msg;?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+<h3>test.php</h3>
+
+<pre>
+&lt;?php
+	require_once 'cheetan.php';
+
+function action( &amp;$c )
+{
+	$c-&gt;set( 'msg', 'Hello' );
+}
+?&gt;
+</pre>
+
+
+<h3>test.html</h3>
+
+<pre>
+&lt;h1&gt;&lt;?php echo $data['msg'];?&gt;&lt;/h1&gt;&lt;br /&gt;&lt;!-- この形式の場合以下も可能 --&gt;
+&lt;h2&gt;&lt;?php echo $msg;?&gt;&lt;/h2&gt;
+</pre>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+前のトピック:&nbsp;&nbsp;<a href="model.html">モデル</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="view.html#top">ページトップ</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+次のトピック:&nbsp;&nbsp;<a href="controller.html">コントローラ</a>
+</p>
+<p><a href="http://php.cheetan.net/">Cheetan</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://www.alphabrend.com/">Alphabrend</a><br />Powered by CodeIgniter Documents CSS.</p>
+</div>
+
+<script type="text/javascript"><!--
+var fc2footerparam = 'charset=' + (document.charset ? document.charset : document.characterSet) + '&url=' + document.location + '&service=0&r=' + Math.floor(Math.random()*99999999999);
+var fc2footertag = '<' + 'script src="//vip.chps-api.fc2.com/apis/footer/?' + fc2footerparam + '" charset="UTF-8"><' + '/script>';
+document.write(fc2footertag);
+//--></script>
+<!-- FC2, inc.-->
+<img src="http://media.fc2.com/counter_img.php?id=50" style="visibility:hidden" alt="inserted by FC2 system" width="0" height="0">
+<!-- FC2, inc.-->
+</body>
+</html>

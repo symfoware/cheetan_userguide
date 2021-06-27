@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ちいたん ユーザガイド</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="css/userguide.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/site.css" />
+
+<meta http-equiv="expires" content="-1" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="robots" content="all" />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"></div></div>
+<div id="nav2"><a name="top"><br /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>ちいたん ユーザガイド Version 0.8.1.0</h1></td>
+<td id="breadcrumb_right"><a href="toc.html">目次</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="javascript:void(0);">ホーム</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a> &nbsp;&#8250;&nbsp;
+バリデート
+</td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>バリデート</h1>
+
+<p>
+フォームなどから取得したデータを検証します。
+コントローラにはバリデータが装備されていて、モデルとバリデータの連結によって非常に簡単にバリデートを行うことができます。
+バリデートを行うには以下の方法があります。
+</p>
+
+<ul>
+<li>モデルと連携させて複数データを自動的に行う</li>
+<li>データを個々に検証</li>
+</ul>
+
+
+<h2>モデルと連携させてバリデート</h2>
+
+<p>
+モデルの<var>$validatefunc</var>変数にバリデート関数を指定しておくことにより、モデルの<kbd>validate</kbd>関数で一括検証を行います。
+例えば以下のように宣言しておきます。
+</p>
+
+<h3>user.php</h3>
+
+<pre>
+&lt;?php
+class CUser extends CModel
+{
+	var $validatefunc = array(
+			'name' =&gt; 'notempty',
+			'email' =&gt; 'email',
+			'age' =&gt; array(
+					'notempty',
+					'number'
+				)
+		);
+}
+?&gt;
+</pre>
+
+
+<p>
+キーにフィールド名、値にバリデータ関数を指定します。
+こうすることによって<kbd>validate</kbd>関数で自動的にそれぞれのバリデータ関数が呼ばれて検証を行います。
+バリデータ関数はフレームワークの<dfn>validate.php</dfn>内の引数が<kbd>($data, $errmsg = '')</kbd>になっているものです。
+必要であれば同じ形式で自由に追加して下さい。
+バリデータ関数を配列で指定すると、複数のバリデートを順に行うことが出来ます。
+</p>
+
+<p>
+次にモデルのバリデート関数を実行します。
+上記のモデルを使用した簡単なチュートリアルを記しますので参考にご覧下さい。
+</p>
+
+<h3>regist.html</h3>
+
+<pre>
+&lt;form method=&quot;post&quot; action=&quot;regist.php&quot;&gt;
+名前&lt;br&gt;
+&lt;input type=&quot;text&quot; name=&quot;user/name&quot;&gt;&lt;br&gt;
+メールアドレス&lt;br&gt;
+&lt;input type=&quot;text&quot; name=&quot;user/email&quot;&gt;&lt;br&gt;
+年齢&lt;br&gt;
+&lt;input type=&quot;text&quot; name=&quot;user/age&quot;&gt;&lt;br&gt;
+&lt;/form&gt;
+</pre>
+
+<h3>regist.php</h3>
+
+<pre>
+&lt;?php
+	require_once 'config.php';
+	require_once 'cheetan.php';
+
+
+function action( &amp;$c )
+{
+	if ( count( $_POST ) ) {
+		if ( $c-&gt;ic_user-&gt;validate( $c-&gt;data['user'] ) ) {
+			//検証成功
+			$c-&gt;ic_user-&gt;insert( $c-&gt;data['user'] );
+		} else {
+			$c-&gt;set( 'err', 'invalidte!' );
+		}
+	}
+}
+?&gt;
+</pre>
+
+
+<p>
+モデルの<var>$validatemsg</var>を以下のように指定しておくことにより、<kbd>validatemsg</kbd>関数で検証＋エラーメッセージも流してくれます。
+</p>
+
+<p>
+例えば、<kbd>name</kbd>だけが引っかかった場合、<var>'名前が入力されていません。&lt;br&gt;'</var>という文字列が返ります。
+また、<kbd>name</kbd>と<kbd>age</kbd>が引っかかった場合は<var>'名前が入力されていません。&lt;br&gt;年齢を入力して下さい。&lt;br&gt;'</var>という文字列が返ります。
+</p>
+
+<h3>user.php</h3>
+
+<pre>
+&lt;?php
+class CUser extends CModel
+{
+	var $validatefunc = array(
+			'name' =&gt; 'notempty',
+			'email' =&gt; 'email',
+			'age' =&gt; array('notempty','number') );
+
+	var $validatemsg  = array(
+			'name' =&gt; '名前が入力されていません。&lt;br&gt;',
+			'email' =&gt; 'メールアドレスが正しくありません。&lt;br&gt;',
+			'age' =&gt; array(
+					'年齢を入力して下さい。&lt;br&gt;',
+					'年齢には数字を入れて下さい。&lt;br&gt;'
+				)
+		);
+?&gt;
+</pre>
+
+<h3>regist.php</h3>
+
+<pre>
+&lt;?php
+	require_once 'config.php';
+	require_once 'cheetan.php';
+
+
+function action( &amp;$c )
+{
+	if ( count( $_POST ) ) {
+		$err = $c-&gt;ic_user-&gt;validatemsg( $c-&gt;data['user'] );
+		if ( $err == '' ) {
+			//検証成功
+			$c-&gt;ic_user-&gt;insert( $c-&gt;data['user'] );
+		} else {
+			$c-&gt;set( 'err', $err );
+		}
+	}
+}
+?&gt;
+</pre>
+
+<p>
+ちなみに<kbd>validate</kbd>関数を使用しても、<var>$validatemsg</var>を設定しておけば<kbd>GetValidateError</kbd>関数でエラーメッセージを配列で取得できます。
+</p>
+
+<pre>
+$c-&gt;ic_user-&gt;validate( $c-&gt;data['user'] );
+$err = $c-&gt;ic_user-&gt;GetValidateError();
+$c-&gt;set( 'nameerror', $err['name'] );
+</pre>
+
+
+<h2>データを個々に検証</h2>
+
+<p>
+コントローラにバリデータが装備されているので、そのバリデータ関数を直接呼びます。
+バリデータは以下のどちらかの変数として利用します。
+</p>
+
+<pre>
+$c-&gt;validate-&gt;function();
+$c-&gt;v-&gt;function();
+</pre>
+
+
+<p>
+バリデート関数は<samp>notempty( $data, $errmsg = '')</samp>のように引数に任意にエラーメッセージを設定できるようになっており、エラーメッセージが設定されていない場合は検証に成功すると<var>TRUE</var>、失敗すると<var>FALSE</var>が返ります。
+エラーメッセージが設定されている場合、検証に成功すると<var>NULL</var>、失敗すると<var>エラーメッセージ</var>が返るようになっています。
+</p>
+
+<h3>エラーメッセージを設定しない時</h3>
+
+<pre>
+if ( $c-&gt;v-&gt;notempty( $name ) ) {
+	$c-&gt;set( 'msg', 'OK!' );
+} else {
+	$c-&gt;set( 'msg', 'Please input your name.' );
+}
+</pre>
+
+<h3>エラーメッセージ設定時</h3>
+
+<pre>
+$err = '';
+$err .= $c-&gt;v-&gt;notempty( $name, 'Please input your name.' );
+$err .= $c-&gt;v-&gt;email( $email, 'Please input right email.' );
+if ( $err == '' ) {
+	Regist( $name, $email )
+}
+$c-&gt;set( $err );
+</pre>
+
+
+<h2>関数</h2>
+
+<ul>
+<li>mixed notempty( mixed data [, string errmsg ] )</li>
+<li>mixed len( string data, int min, int max [, string errmsg ] )</li>
+<li>mixed number( mixed data [, string errmsg ] )</li>
+<li>mixed eisu( string data [, string errmsg ] )</li>
+<li>mixed email( string data [, string errmsg ] )</li>
+</ul>
+
+
+<h3>mixed notempty( mixed <var>data</var> [, string <var>errmsg</var> ] )</h3>
+
+<p>
+<var>data</var>がemptyでないかを検証します。
+</p>
+
+
+<h3>mixed len( string <var>data</var>, int <var>min</var>, int <var>max</var> [, string <var>errmsg</var> ] )</h3>
+
+<p>
+文字列<var>data</var>の長さが<var>min</var>以上、<var>max</var>以下であるかを検証します。(validatefuncには指定できません。）
+</p>
+
+
+<h3>mixed number( mixed <var>data</var> [, string <var>errmsg</var> ] )</h3>
+
+<p>
+<var>data</var>が数字であるかを検証します。
+</p>
+
+
+<h3>mixed eisu( string <var>data</var> [, string <var>errmsg</var> ] )</h3>
+
+<p>
+<var>data</var>が英数字のみで形成されているかを検証します。
+</p>
+
+
+<h3>mixed email( string <var>data</var> [, string <var>errmsg</var> ] )</h3>
+
+<p>
+<var>data</var>がメールアドレスの形式になっているかを検証します。
+</p>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+前のトピック:&nbsp;&nbsp;<a href="database.html">データベース</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="validate.html#top">ページトップ</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+次のトピック:&nbsp;&nbsp;<a href="sanitize.html">サニタイズ</a>
+</p>
+<p><a href="http://php.cheetan.net/">Cheetan</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://www.alphabrend.com/">Alphabrend</a><br />Powered by CodeIgniter Documents CSS.</p>
+</div>
+
+<script type="text/javascript"><!--
+var fc2footerparam = 'charset=' + (document.charset ? document.charset : document.characterSet) + '&url=' + document.location + '&service=0&r=' + Math.floor(Math.random()*99999999999);
+var fc2footertag = '<' + 'script src="//vip.chps-api.fc2.com/apis/footer/?' + fc2footerparam + '" charset="UTF-8"><' + '/script>';
+document.write(fc2footertag);
+//--></script>
+<!-- FC2, inc.-->
+<img src="http://media.fc2.com/counter_img.php?id=50" style="visibility:hidden" alt="inserted by FC2 system" width="0" height="0">
+<!-- FC2, inc.-->
+</body>
+</html>

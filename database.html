@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ちいたん ユーザガイド</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="css/userguide.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/site.css" />
+
+<meta http-equiv="expires" content="-1" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="robots" content="all" />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"></div></div>
+<div id="nav2"><a name="top"><br /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>ちいたん ユーザガイド Version 0.8.1.0</h1></td>
+<td id="breadcrumb_right"><a href="toc.html">目次</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="javascript:void(0);">ホーム</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a> &nbsp;&#8250;&nbsp;
+データベース
+</td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>データベース</h1>
+
+<p>
+ちいたんで使用可能なデータベースは、標準でMySQL, PostgreSQL, TextSQLの3種類です。
+オプション（ソースコードの修正）でSQLiteも使用可能です。
+</p>
+
+
+<h2>定数</h2>
+
+<ul>
+<li>DBKIND_MYSQL --- データベースにMySQLを使用します。</li>
+<li>DBKIND_PGSQL --- データベースにPostgreSQLを使用します。</li>
+<li>DBKIND_TEXTSQL --- データベースにTextSQLを使用します。</li>
+<li>DBKIND_SQLITE --- データベースにSQLite(v2.x.x)を使用します。</li>
+<li>DBKIND_PDO_SQLITE --- データベースにSQLite(v3.x.x)を使用します。</li>
+<li>DBKIND_SQLITE3 --- データベースにSQLite(v3.x.x)を使用します。【PHP 5.3.0以上が必要】
+<p>【<a href="cheetan0810_sqlite.diff">SQLite対応差分</a>】</p></li>
+</ul>
+
+
+<h2>関数</h2>
+
+<ul>
+<li>void add( string name, string host, string user, string pswd, string db [, int kind [, int port ]] )</li>
+</ul>
+
+
+<h3>
+void add( string <var>name</var>, string <var>host</var>, string <var>user</var>, string <var>pswd</var>, string <var>db</var> [, int <var>kind</var> [, int <var>port</var> ]] )
+</h3>
+
+<p>
+データベースを追加します。<var>kind</var>を省略するとMySQLが選択されます。
+</p>
+<pre>
+function config_database( &amp;$db )
+{
+	$db-&gt;add( '', 'host', 'user', 'pswd', 'db', DBKIND_MYSQL );
+}
+</pre>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+前のトピック:&nbsp;&nbsp;<a href="controller.html">コントローラ</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="database.html#top">ページトップ</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="index.html">ユーザガイド ホーム</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+次のトピックス:&nbsp;&nbsp;<a href="validate.html">バリデード</a>
+</p>
+<p><a href="http://php.cheetan.net/">Cheetan</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://www.alphabrend.com/">Alphabrend</a><br />Powered by CodeIgniter Documents CSS.</p>
+</div>
+
+<script type="text/javascript"><!--
+var fc2footerparam = 'charset=' + (document.charset ? document.charset : document.characterSet) + '&url=' + document.location + '&service=0&r=' + Math.floor(Math.random()*99999999999);
+var fc2footertag = '<' + 'script src="//vip.chps-api.fc2.com/apis/footer/?' + fc2footerparam + '" charset="UTF-8"><' + '/script>';
+document.write(fc2footertag);
+//--></script>
+<!-- FC2, inc.-->
+<img src="http://media.fc2.com/counter_img.php?id=50" style="visibility:hidden" alt="inserted by FC2 system" width="0" height="0">
+<!-- FC2, inc.-->
+</body>
+</html>
