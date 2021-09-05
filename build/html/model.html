@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>モデル &mdash; cheetan 0.8.1.0 ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="ビュー" href="view.html" />
+    <link rel="prev" title="コンフィグファイル" href="configfile.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cheetan
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">インストール</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="download.html">リリースノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">インストールの解説</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">マニュアル</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configfile.html">コンフィグファイル</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">モデル</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">モデルの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">モデルの登録</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">使用方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#condition">引数に使用するcondition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">関数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">ビュー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">コントローラ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">データベース</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">バリデート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sanitize.html">サニタイズ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">ロギング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notice.html">仕様、注意事項</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">機能拡張例</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="controller-extend.html">コントローラのオーバーライド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view-extend.html">ビューのオーバーライド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="component.html">コンポーネント</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actioncontroller.html">アクションコントローラ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cheetan</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>モデル</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>モデル<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>データベースのテーブルをモデルによって簡単に操作します。</p>
+<div class="section" id="id2">
+<h2>モデルの作成<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>以下が最小構成のモデルです。 <code class="docutils literal notranslate"><span class="pre">テーブル名.php</span></code> で作成し、テーブル名の一文字目を大文字にして以下を小文字にし、 <code class="docutils literal notranslate"><span class="pre">C</span></code> をつけたものをクラス名とします。</p>
+<p><strong>user.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">CUser</span> <span class="k">extends</span> <span class="nx">CModel</span>
+<span class="p">{</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>モデルの登録<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>フレームワークから呼ばれる <code class="docutils literal notranslate"><span class="pre">config_models</span></code> 関数内でモデルを登録します。</p>
+<p><strong>config.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">config_database</span><span class="p">(</span> <span class="o">&amp;</span><span class="nv">$db</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;dbname&#39;</span> <span class="p">);</span>
+    <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span> <span class="s1">&#39;special&#39;</span><span class="p">,</span> <span class="s1">&#39;192.168.0.100&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;dbname&#39;</span> <span class="p">);</span>
+    <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span> <span class="s1">&#39;pg&#39;</span><span class="p">,</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;dbname&#39;</span><span class="p">,</span> <span class="nx">DBKIND_PGSQL</span><span class="p">,</span> <span class="s1">&#39;5432&#39;</span> <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">config_models</span><span class="p">(</span> <span class="o">&amp;</span><span class="nv">$controller</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$controller</span><span class="o">-&gt;</span><span class="na">AddModel</span><span class="p">(</span> <span class="s1">&#39;user.php&#39;</span> <span class="p">);</span>
+    <span class="nv">$controller</span><span class="o">-&gt;</span><span class="na">AddModel</span><span class="p">(</span> <span class="s1">&#39;specialuser.php&#39;</span><span class="p">,</span> <span class="s1">&#39;special&#39;</span> <span class="p">);</span>
+    <span class="nv">$controller</span><span class="o">-&gt;</span><span class="na">AddModel</span><span class="p">(</span> <span class="s1">&#39;test.php&#39;</span><span class="p">,</span> <span class="s1">&#39;pg&#39;</span> <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>使用方法<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>モデルはコントローラにて呼び出します。 呼び出し方は以下の二つの方法があります。 上の方法はコントローラのメンバ変数と競合しない場合のみ設定されています。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">function</span><span class="p">();</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">m</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">function</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="condition">
+<h2>引数に使用するcondition<a class="headerlink" href="#condition" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>いくつかのメソッドの引数に <code class="docutils literal notranslate"><span class="pre">condition</span></code> がありますが、文字列によるSQLの記述の他に変数による指定も出来ます。 今のところ、結合は全てANDです。
+これを使った場合、 <code class="docutils literal notranslate"><span class="pre">value</span></code> は自動的にエスケープされます。</p>
+<p>例えば以下の例はどちらも同じ機能になります。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span> <span class="s1">&#39;id=1&#39;</span> <span class="p">);</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>関数<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><p>array find( [ mixed condition [, string order [, string limit [, string group]]] )</p></li>
+<li><p>array findby( string field, string value [, string order [, string limit ]] )</p></li>
+<li><p>array findone( [ string condition [, string order ]] )</p></li>
+<li><p>array findoneby( string field, string value [, string order ] )</p></li>
+<li><p>array findquery( string query [, string condition [, string order [, string limit [, string group ]]]] )</p></li>
+<li><p>int getcount( [ string condition [, string limit ]] )</p></li>
+<li><p>bool insert( array datas )</p></li>
+<li><p>bool update( array datas )</p></li>
+<li><p>bool updateby( array datas, string condition )</p></li>
+<li><p>bool del( string condition )</p></li>
+<li><p>result query( string query )</p></li>
+<li><p>int GetLastInsertId()</p></li>
+<li><p>int GetAffectedRows()</p></li>
+<li><p>string GetLastError()</p></li>
+<li><p>string to_datetime( [ int time ] )</p></li>
+<li><p>string escape( string str )</p></li>
+<li><p>bool validate( array datas )</p></li>
+<li><p>string validatemsg( array datas )</p></li>
+<li><p>array GetValidateError()</p></li>
+<li><p>array describe()</p></li>
+</ul>
+<p><strong>array find( [ mixed condition [, string order [, string limit [, string group ]]] )</strong></p>
+<p>テーブルの中から <code class="docutils literal notranslate"><span class="pre">condition</span></code> と <code class="docutils literal notranslate"><span class="pre">order</span></code> 、 <code class="docutils literal notranslate"><span class="pre">limit</span></code> 、 <code class="docutils literal notranslate"><span class="pre">group</span></code> で指定されたものを配列として取得します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$results</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span> <span class="s1">&#39;id=&#39;</span><span class="o">.</span><span class="nv">$id</span><span class="p">,</span> <span class="s1">&#39;age DESC&#39;</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>array findby( string field, string value [, string order [, string limit ]] )</strong></p>
+<p>テーブルから <code class="docutils literal notranslate"><span class="pre">field</span></code> と <code class="docutils literal notranslate"><span class="pre">value</span></code> 、 <code class="docutils literal notranslate"><span class="pre">order</span></code> 、 <code class="docutils literal notranslate"><span class="pre">limit</span></code> で指定されたものを配列として取得します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$results</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">findby</span><span class="p">(</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;id ASC&#39;</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>array findone( [ string condition [, string order ]] )</strong></p>
+<p>テーブルの中から <code class="docutils literal notranslate"><span class="pre">condition</span></code> と <code class="docutils literal notranslate"><span class="pre">order</span></code> で指定されたものの先頭の一つを取得します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">findone</span><span class="p">(</span> <span class="s1">&#39;id=&#39;</span><span class="o">.</span><span class="nv">$id</span><span class="p">,</span> <span class="s1">&#39;age DESC&#39;</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>array findoneby( string field, string value [, string order ] )</strong></p>
+<p>テーブルの中から <code class="docutils literal notranslate"><span class="pre">field</span></code> と <code class="docutils literal notranslate"><span class="pre">value</span></code> 、 <code class="docutils literal notranslate"><span class="pre">order</span></code> で指定されたものの先頭の一つを取得します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">findone</span><span class="p">(</span> <span class="s1">&#39;id=&#39;</span><span class="o">.</span><span class="nv">$id</span><span class="p">,</span> <span class="s1">&#39;age DESC&#39;</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>array findquery( string query [, string condition [, string order [, string limit [, string group ]]]] )</strong></p>
+<p>リレーションを使用したい場合はこちらを利用します。 適合したレコードを配列にして取得します。 <code class="docutils literal notranslate"><span class="pre">query</span></code> にはWHERE句より前のクエリ文を指定します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s1">&#39;SELECT user.*, office.name FROM user LEFT JOIN user.office_id=office.id&#39;</span><span class="p">;</span>
+<span class="nv">$results</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">findquery</span><span class="p">(</span> <span class="nv">$query</span><span class="p">,</span> <span class="s1">&#39;age=24&#39;</span><span class="p">,</span> <span class="s1">&#39;age DESC&#39;</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>int getcount( [ string condition [, string limit ]] )</strong></p>
+<p>テーブルの中の <code class="docutils literal notranslate"><span class="pre">condition</span></code> と <code class="docutils literal notranslate"><span class="pre">limit</span></code> で当てはまる要素の数を取得します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$count</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">getcount</span><span class="p">(</span> <span class="s1">&#39;id=&#39;</span><span class="o">.</span><span class="nv">$id</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>bool insert( array datas )</strong></p>
+<p>キーに要素名を指定して値を入れた配列を指定すると、その通りにINSERTを行います。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$name</span><span class="p">;</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$email</span><span class="p">;</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span> <span class="nv">$data</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>bool update( array datas )</strong></p>
+<p>キーに要素名を指定して値を入れた配列を指定すると、その通りにUPDATEを行います。
+モデルのメンバ変数 <code class="docutils literal notranslate"><span class="pre">$id</span></code> （デフォルト:  <code class="docutils literal notranslate"><span class="pre">'id'</span></code> ）と同じキーを見つけ、自動的にその場所をUPDATEします。
+<code class="docutils literal notranslate"><span class="pre">$id</span></code> が見つからなかった場合は <code class="docutils literal notranslate"><span class="pre">FALSE</span></code> を返し処理を中止します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$id</span><span class="p">;</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$name</span><span class="p">;</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$email</span><span class="p">;</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span> <span class="nv">$data</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>bool updateby( array datas, string condition )</strong></p>
+<p>updateの様に自動的に条件を指定するのではなく、明示的に <code class="docutils literal notranslate"><span class="pre">condition</span></code> で条件を指定できます。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$name</span><span class="p">;</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$email</span><span class="p">;</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">updateby</span><span class="p">(</span> <span class="nv">$data</span><span class="p">,</span> <span class="s1">&#39;age=25&#39;</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>bool del( string condition )</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">condition</span></code> で指定されたレコードを削除します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">del</span><span class="p">(</span> <span class="s1">&#39;age=25&#39;</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>result query( string query )</strong></p>
+<p>直接クエリを送信します。 テーブル名は自動的には設定されませんので完全なクエリを指定します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$results</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span> <span class="s2">&quot;SELECT * FROM user WHERE age=&#39;24&#39; ORDER BY age DESC&quot;</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>int GetLastInsertId()</strong></p>
+<p>最後に挿入したIDを返します。（MySQLのみ）</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$lastId</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">GetLastInsertId</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><strong>int GetAffectedRows()</strong></p>
+<p>SQLで影響を受けた行の数を返します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$count</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">GetAffectedRows</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><strong>string GetLastError()</strong></p>
+<p>最後に得たエラーを返します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$error</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">GetLastError</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><strong>string to_datetime( [ int time ] )</strong></p>
+<p>指定されたUNIXタイムスタンプをDATETIMEの様式にフォーマットします。 （例: 2006-09-19 12:24:46）</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$date</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">to_datetime</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><strong>string escape( string str )</strong></p>
+<p>文字列をクエリ用にエスケープします。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">escape</span><span class="p">(</span> <span class="nv">$query</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>bool validate( array datas )</strong></p>
+<p><strong>string validatemsg( array datas )</strong></p>
+<p><strong>array GetValidateError()</strong></p>
+<p>これらはバリデート用関数です。 詳しくはバリデートのマニュアルをご覧下さい。</p>
+<p><strong>array describe()</strong></p>
+<p>テーブルのカラム情報を得ます。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$columns</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">user</span><span class="o">-&gt;</span><span class="na">describe</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="view.html" class="btn btn-neutral float-right" title="ビュー" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="configfile.html" class="btn btn-neutral float-left" title="コンフィグファイル" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, symfo.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

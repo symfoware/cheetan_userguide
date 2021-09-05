@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>チュートリアル &mdash; cheetan 0.8.1.0 ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="コンフィグファイル" href="configfile.html" />
+    <link rel="prev" title="インストールの解説" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cheetan
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">インストール</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="download.html">リリースノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">インストールの解説</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">マニュアル</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">チュートリアル</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">データベースを使う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">モデルを使う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">ビューを使う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">コントローラーを使う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">一覧表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">データの編集</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">データの削除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configfile.html">コンフィグファイル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">ビュー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">コントローラ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">データベース</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">バリデート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sanitize.html">サニタイズ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">ロギング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notice.html">仕様、注意事項</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">機能拡張例</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="controller-extend.html">コントローラのオーバーライド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view-extend.html">ビューのオーバーライド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="component.html">コンポーネント</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actioncontroller.html">アクションコントローラ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cheetan</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>チュートリアル</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>チュートリアル<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>ブログを作成する例を見ながら、以下を参考にちいたんフレームワークの何を、どのように使用するかを決定しましょう。</p>
+<div class="section" id="id2">
+<h2>データベースを使う<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>現在ちいたんフレームワークはMySQL, PostgreSQL, TextSQLに対応しています（その他にも柔軟に対応可能）。</p>
+<p>チュートリアルではMySQLでの説明をします。
+データベースの初期化は、フレームワークによって呼ばれる <code class="docutils literal notranslate"><span class="pre">config_database</span></code> 関数によって設定します。 以下に例を示します。</p>
+<p>どのファイルからも参照できるように <code class="docutils literal notranslate"><span class="pre">config.php</span></code> というコンフィグファイルを作成してそこに関数を書きます。</p>
+<p><strong>config.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">config_database</span><span class="p">(</span> <span class="o">&amp;</span><span class="nv">$db</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;dbname&#39;</span> <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>モデルを使う<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>モデルはテーブルを扱うクラスです。これを用意するだけでソースを書く必要が無くなります。 試してみましょう。</p>
+<p>まずブログ用に以下の様なテーブルを作成します。</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">blog_data</span><span class="o">`</span> <span class="p">(</span>
+<span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">auto_increment</span><span class="p">,</span>
+<span class="o">`</span><span class="n">title</span><span class="o">`</span> <span class="nb">text</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+<span class="o">`</span><span class="n">body</span><span class="o">`</span> <span class="nb">text</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+<span class="o">`</span><span class="n">modified</span><span class="o">`</span> <span class="k">timestamp</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">default</span> <span class="k">CURRENT_TIMESTAMP</span> <span class="k">on</span> <span class="k">update</span> <span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="k">PRIMARY</span> <span class="k">KEY</span>  <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>次にモデルを作成します。 判りやすいようにmodelsフォルダ内にでも入れておきましょう。</p>
+<p><strong>models/blog_data.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">CBlog_data</span> <span class="k">extends</span> <span class="nx">CModel</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>あれ、何も書いてない…そうなんです。 これだけでデータベースの読み書きが出来てしまいます。 どのように行うかは後のお楽しみ。 びっくりするほど簡単です。</p>
+<p>では、このモデルを使用するために、 <code class="docutils literal notranslate"><span class="pre">config.php</span></code> 内にフレームワークから呼ばれる関数を追加しましょう。</p>
+<p><strong>config.php追加分</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">function config_models( &amp;$controller )</span>
+<span class="x">{</span>
+<span class="x">    $controller-&gt;AddModel( dirname( __FILE__ ) . &#39;/models/blog_data.php&#39; );</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>ビューを使う<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ビューは表示部分です。実際のHTMLを書きます。 HTMLを書くにはなんとこれだけの方法が用意されています。</p>
+<ul class="simple">
+<li><p>PHPファイルに直接書く</p></li>
+<li><p>smartyの用にPHPファイルとテンプレートを分ける（構文解析が無い分恐らく高速）</p></li>
+<li><p>全ファイル共通のテンプレートを用意し、コンテンツ部分をPHPファイルに直接書く</p></li>
+<li><p>全ファイル共通のテンプレートを用意し、PHPファイルとテンプレートを分ける</p></li>
+</ul>
+<p>詳しくはマニュアルのビューにて解説しています。 今回は４番目の全ファイル共通のテンプレートを用意し、PHPファイルとテンプレートを分ける方法を使用します。</p>
+<p>まず全ファイル共通テンプレートを用意しましょう。</p>
+<p><strong>template.html</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span>
+<span class="x">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</span>
+<span class="x">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;ja&quot; lang=&quot;ja&quot;&gt;</span>
+<span class="x">&lt;head&gt;</span>
+<span class="x">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;</span>
+<span class="x">&lt;title&gt;ちいたんブログ&lt;/title&gt;</span>
+<span class="x">&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;</span>
+<span class="x">&lt;/head&gt;</span>
+<span class="x">&lt;body&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">();</span><span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">&lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>とまあ、こんなものでしょうか。 今回の場合 <code class="docutils literal notranslate"><span class="pre">$this-&gt;content();</span></code> のところに各ページのコンテンツが表示されます。</p>
+<p>続いてブログを書き込むページを用意します。 共通テンプレートを使用しているので中身だけです。</p>
+<p><strong>add.html</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;form method=&quot;post&quot; action=&quot;add.php&quot;&gt;</span>
+<span class="x">タイトル&lt;br /&gt;</span>
+<span class="x">&lt;input type=&quot;text&quot; name=&quot;blog/title&quot; /&gt;&lt;br /&gt;</span>
+<span class="x">内容&lt;br /&gt;</span>
+<span class="x">&lt;textarea cols=&quot;40&quot; rows=&quot;8&quot; name=&quot;blog/body&quot;&gt;&lt;/textarea&gt;&lt;br /&gt;</span>
+<span class="x">&lt;input type=&quot;submit&quot; value=&quot;書き込み&quot; /&gt;</span>
+<span class="x">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>コントローラーを使う<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>コントローラーにより今まで作成したモデル、ビュー全てを連結し、動作させます。 ファイルは何の指定もなければビューの拡張子を.phpに変えたものです。</p>
+<p>まずは先ほどビューで作成したフォームにより、データを保存するプログラムがどれだけ少ないかご覧下さい。</p>
+<p><strong>add.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+    <span class="k">require_once</span> <span class="s1">&#39;config.php&#39;</span><span class="p">;</span>
+    <span class="k">require_once</span> <span class="s1">&#39;cheetan/cheetan.php&#39;</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="nf">action</span><span class="p">(</span> <span class="o">&amp;</span><span class="nv">$c</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">SetTemplateFile</span><span class="p">(</span> <span class="s1">&#39;template.html&#39;</span> <span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nb">count</span><span class="p">(</span> <span class="nv">$_POST</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">blog_data</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="s1">&#39;blog&#39;</span><span class="p">]</span> <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>blog_dataというモデルがここで使用されているのがおわかりでしょうか。 ビューでインプットの名前に <code class="docutils literal notranslate"><span class="pre">blog/title</span></code> などという変な名前を指定していたのは、 <code class="docutils literal notranslate"><span class="pre">blog/</span></code> で指定されているデータをコントローラ側で <code class="docutils literal notranslate"><span class="pre">$data['blog']</span></code> 配列に自動的に挿入するためでした。</p>
+<p>こうやって必要なデータだけを配列に集め、insertします。</p>
+</div>
+<div class="section" id="id6">
+<h2>一覧表示<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>では書き込んだデータを一覧表示してみましょう。</p>
+<p><strong>view.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+    <span class="k">require_once</span> <span class="s1">&#39;config.php&#39;</span><span class="p">;</span>
+    <span class="k">require_once</span> <span class="s1">&#39;cheetan/cheetan.php&#39;</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="nf">action</span><span class="p">(</span> <span class="o">&amp;</span><span class="nv">$c</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">SetTemplateFile</span><span class="p">(</span> <span class="s1">&#39;template.html&#39;</span> <span class="p">);</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> <span class="s1">&#39;datas&#39;</span><span class="p">,</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">blog_data</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">()</span> <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>view.html</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">foreach</span><span class="p">(</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;datas&#39;</span><span class="p">]</span> <span class="k">as</span> <span class="nv">$data</span> <span class="p">){</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">&lt;table&gt;</span>
+<span class="x">&lt;tr&gt;</span>
+<span class="x">&lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">];</span><span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">&lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nb">str_replace</span><span class="p">(</span> <span class="s2">&quot;¥n&quot;</span><span class="p">,</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span> <span class="p">);</span><span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">&lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;modified&#39;</span><span class="p">];</span><span class="cp">?&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">&lt;/tr&gt;</span>
+<span class="x">&lt;/table&gt;</span>
+<span class="cp">&lt;?php</span> <span class="p">}</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<p>このように <code class="docutils literal notranslate"><span class="pre">set</span></code> 関数によりビュー内で値を <code class="docutils literal notranslate"><span class="pre">$data</span></code> として参照することが出来ます。</p>
+</div>
+<div class="section" id="id7">
+<h2>データの編集<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ではデータを編集してみましょう。</p>
+<p><strong>edit.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+    <span class="k">require_once</span> <span class="s1">&#39;config.php&#39;</span><span class="p">;</span>
+    <span class="k">require_once</span> <span class="s1">&#39;cheetan/cheetan.php&#39;</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="nf">action</span><span class="p">(</span> <span class="o">&amp;</span><span class="nv">$c</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">SetTemplateFile</span><span class="p">(</span> <span class="s1">&#39;template.html&#39;</span> <span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nb">count</span><span class="p">(</span> <span class="nv">$_POST</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">blog_data</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="s1">&#39;blog&#39;</span><span class="p">]</span> <span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">blog_data</span><span class="o">-&gt;</span><span class="na">findone</span><span class="p">(</span> <span class="s1">&#39;id=&#39;</span> <span class="o">.</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>edit.html</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;form method=&quot;post&quot; action=&quot;edit.php&quot;&gt;</span>
+<span class="x">タイトル&lt;br /&gt;</span>
+<span class="x">&lt;input type=&quot;text&quot; name=&quot;blog/title&quot; value=&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">];</span><span class="cp">?&gt;</span><span class="x">&quot; /&gt;&lt;br /&gt;</span>
+<span class="x">内容&lt;br /&gt;</span>
+<span class="x">&lt;textarea cols=&quot;40&quot; rows=&quot;6&quot; name=&quot;blog/body&quot;&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;body&#39;</span><span class="p">];</span><span class="cp">?&gt;</span><span class="x">&lt;/textarea&gt;&lt;br /&gt;</span>
+<span class="x">&lt;input type=&quot;hidden&quot; name=&quot;blog/id&quot; value=&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">];</span><span class="cp">?&gt;</span><span class="x">&quot; /&gt;</span>
+<span class="x">&lt;input type=&quot;submit&quot; value=&quot;更新&quot; /&gt;</span>
+<span class="x">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>データの削除<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ではデータを削除してみましょう。 もうある程度予想がつきますね。</p>
+<p><strong>del.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+    <span class="k">require_once</span> <span class="s1">&#39;config.php&#39;</span><span class="p">;</span>
+    <span class="k">require_once</span> <span class="s1">&#39;cheetan/cheetan.php&#39;</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="nf">action</span><span class="p">(</span> <span class="o">&amp;</span><span class="nv">$c</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">SetTemplateFile</span><span class="p">(</span> <span class="s1">&#39;template.html&#39;</span> <span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nb">count</span><span class="p">(</span> <span class="nv">$_POST</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">blog_data</span><span class="o">-&gt;</span><span class="na">del</span><span class="p">(</span> <span class="s1">&#39;id=&#39;</span> <span class="o">.</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">blog_data</span><span class="o">-&gt;</span><span class="na">findone</span><span class="p">(</span> <span class="s1">&#39;id=&#39;</span> <span class="o">.</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>del.html</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;form method=&quot;post&quot; action=&quot;del.php&quot;&gt;</span>
+<span class="x">削除してもよろしいですか？&lt;br /&gt;</span>
+<span class="x">タイトル&lt;br /&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">];</span><span class="cp">?&gt;</span><span class="x">&lt;br /&gt;</span>
+<span class="x">内容&lt;br /&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;body&#39;</span><span class="p">];</span><span class="cp">?&gt;</span><span class="x">&lt;br /&gt;</span>
+<span class="x">&lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">];</span><span class="cp">?&gt;</span><span class="x">&quot; /&gt;</span>
+<span class="x">&lt;input type=&quot;submit&quot; value=&quot;削除&quot; /&gt;</span>
+<span class="x">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>まとめ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>これで一通りブログっぽくなりました。このように非常に簡単にアプリケーションを作成することが出来ます。 もうフレームワークを使わないプログラムやモデルのないフレームワークなんて使う気になれませんよね？</p>
+<p>ちいたんフレームワークにはもうちょっと便利な機能が用意されています。 是非マニュアルを参考に色々と試してみてください。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="configfile.html" class="btn btn-neutral float-right" title="コンフィグファイル" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="install.html" class="btn btn-neutral float-left" title="インストールの解説" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, symfo.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

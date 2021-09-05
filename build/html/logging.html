@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>ロギング &mdash; cheetan 0.8.1.0 ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="仕様、注意事項" href="notice.html" />
+    <link rel="prev" title="サニタイズ" href="sanitize.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cheetan
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">インストール</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="download.html">リリースノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">インストールの解説</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">マニュアル</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configfile.html">コンフィグファイル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">ビュー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">コントローラ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">データベース</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">バリデート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sanitize.html">サニタイズ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ロギング</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">デバッグモードの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">ログの表示</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notice.html">仕様、注意事項</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">機能拡張例</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="controller-extend.html">コントローラのオーバーライド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view-extend.html">ビューのオーバーライド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="component.html">コンポーネント</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actioncontroller.html">アクションコントローラ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cheetan</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>ロギング</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>ロギング<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>次のようにデバッグ時に実行したSQLログを取得することが出来ます。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 72%" />
+<col style="width: 9%" />
+<col style="width: 7%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SQL</p></th>
+<th class="head"><p>ERROR</p></th>
+<th class="head"><p>ROWS</p></th>
+<th class="head"><p>TIME</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SELECT * FROM user WHERE status=1 LIMIT 5</p></td>
+<td></td>
+<td><p>5</p></td>
+<td><p>0.01205</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id2">
+<h2>デバッグモードの設定<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ちいたんをデバッグモードにします。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">config_controller</span><span class="p">(</span> <span class="o">&amp;</span><span class="nv">$c</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">SetDebug</span><span class="p">(</span> <span class="k">TRUE</span> <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">cheetan_sql_log</span></code> にログがセットされますので、それを任意の場所に表示するだけです。</p>
+</div>
+<div class="section" id="id3">
+<h2>ログの表示<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>HTML内でログを表示します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cheetan_sql_log&#39;</span><span class="p">];</span><span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<p>ちなみに、出力されるテーブルには <code class="docutils literal notranslate"><span class="pre">cheetan_sql_log</span></code> というクラスが割り当てられています。
+CSSを作成すれば表のデザイン変更が可能です。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="notice.html" class="btn btn-neutral float-right" title="仕様、注意事項" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sanitize.html" class="btn btn-neutral float-left" title="サニタイズ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, symfo.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

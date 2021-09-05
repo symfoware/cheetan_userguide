@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>バリデート &mdash; cheetan 0.8.1.0 ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="サニタイズ" href="sanitize.html" />
+    <link rel="prev" title="データベース" href="database.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cheetan
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">インストール</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="download.html">リリースノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">インストールの解説</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">マニュアル</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configfile.html">コンフィグファイル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">ビュー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">コントローラ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">データベース</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">バリデート</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">モデルと連携させてバリデート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">データを個々に検証</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">関数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sanitize.html">サニタイズ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">ロギング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notice.html">仕様、注意事項</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">機能拡張例</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="controller-extend.html">コントローラのオーバーライド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view-extend.html">ビューのオーバーライド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="component.html">コンポーネント</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actioncontroller.html">アクションコントローラ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cheetan</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>バリデート</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>バリデート<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>フォームなどから取得したデータを検証します。 コントローラにはバリデータが装備されていて、モデルとバリデータの連結によって非常に簡単にバリデートを行うことができます。
+バリデートを行うには以下の方法があります。</p>
+<ul class="simple">
+<li><p>モデルと連携させて複数データを自動的に行う</p></li>
+<li><p>データを個々に検証</p></li>
+</ul>
+<div class="section" id="id2">
+<h2>モデルと連携させてバリデート<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>モデルの <code class="docutils literal notranslate"><span class="pre">$validatefunc</span></code> 変数にバリデート関数を指定しておくことにより、モデルの <code class="docutils literal notranslate"><span class="pre">validate</span></code> 関数で一括検証を行います。 例えば以下のように宣言しておきます。</p>
+<p><strong>user.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">CUser</span> <span class="k">extends</span> <span class="nx">CModel</span>
+<span class="p">{</span>
+    <span class="k">var</span> <span class="nv">$validatefunc</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;notempty&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;age&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+                    <span class="s1">&#39;notempty&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;number&#39;</span>
+                <span class="p">)</span>
+        <span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<p>キーにフィールド名、値にバリデータ関数を指定します。</p>
+<p>こうすることによって <code class="docutils literal notranslate"><span class="pre">validate</span></code> 関数で自動的にそれぞれのバリデータ関数が呼ばれて検証を行います。
+バリデータ関数はフレームワークの <code class="docutils literal notranslate"><span class="pre">validate.php</span></code> 内の引数が <code class="docutils literal notranslate"><span class="pre">($data,</span> <span class="pre">$errmsg</span> <span class="pre">=</span> <span class="pre">'')</span></code> になっているものです。
+必要であれば同じ形式で自由に追加して下さい。</p>
+<p>バリデータ関数を配列で指定すると、複数のバリデートを順に行うことが出来ます。</p>
+<p>次にモデルのバリデート関数を実行します。 上記のモデルを使用した簡単なチュートリアルを記しますので参考にご覧下さい。</p>
+<p><strong>regist.html</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;form method=&quot;post&quot; action=&quot;regist.php&quot;&gt;</span>
+<span class="x">名前&lt;br&gt;</span>
+<span class="x">&lt;input type=&quot;text&quot; name=&quot;user/name&quot;&gt;&lt;br&gt;</span>
+<span class="x">メールアドレス&lt;br&gt;</span>
+<span class="x">&lt;input type=&quot;text&quot; name=&quot;user/email&quot;&gt;&lt;br&gt;</span>
+<span class="x">年齢&lt;br&gt;</span>
+<span class="x">&lt;input type=&quot;text&quot; name=&quot;user/age&quot;&gt;&lt;br&gt;</span>
+<span class="x">&lt;/form&gt;</span>
+</pre></div>
+</div>
+<p><strong>regist.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+    <span class="k">require_once</span> <span class="s1">&#39;config.php&#39;</span><span class="p">;</span>
+    <span class="k">require_once</span> <span class="s1">&#39;cheetan.php&#39;</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="nf">action</span><span class="p">(</span> <span class="o">&amp;</span><span class="nv">$c</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nb">count</span><span class="p">(</span> <span class="nv">$_POST</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">ic_user</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">(</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="c1">//検証成功</span>
+            <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">ic_user</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> <span class="s1">&#39;err&#39;</span><span class="p">,</span> <span class="s1">&#39;invalidte!&#39;</span> <span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<p>モデルの <code class="docutils literal notranslate"><span class="pre">$validatemsg</span></code> を以下のように指定しておくことにより、 <code class="docutils literal notranslate"><span class="pre">validatemsg</span></code> 関数で検証＋エラーメッセージも流してくれます。</p>
+<p>例えば、 <code class="docutils literal notranslate"><span class="pre">name</span></code> だけが引っかかった場合、 <code class="docutils literal notranslate"><span class="pre">'名前が入力されていません。&lt;br&gt;'</span></code> という文字列が返ります。
+また、 <code class="docutils literal notranslate"><span class="pre">name</span></code> と <code class="docutils literal notranslate"><span class="pre">age</span></code> が引っかかった場合は <code class="docutils literal notranslate"><span class="pre">'名前が入力されていません。&lt;br&gt;年齢を入力して下さい。&lt;br&gt;'</span></code> という文字列が返ります。</p>
+<p><strong>user.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">CUser</span> <span class="k">extends</span> <span class="nx">CModel</span>
+<span class="p">{</span>
+    <span class="k">var</span> <span class="nv">$validatefunc</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;notempty&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;age&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;notempty&#39;</span><span class="p">,</span><span class="s1">&#39;number&#39;</span><span class="p">)</span> <span class="p">);</span>
+
+    <span class="k">var</span> <span class="nv">$validatemsg</span>  <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;名前が入力されていません。&lt;br&gt;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;メールアドレスが正しくありません。&lt;br&gt;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;age&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+                    <span class="s1">&#39;年齢を入力して下さい。&lt;br&gt;&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;年齢には数字を入れて下さい。&lt;br&gt;&#39;</span>
+                <span class="p">)</span>
+        <span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<p><strong>regist.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+    <span class="k">require_once</span> <span class="s1">&#39;config.php&#39;</span><span class="p">;</span>
+    <span class="k">require_once</span> <span class="s1">&#39;cheetan.php&#39;</span><span class="p">;</span>
+
+
+<span class="k">function</span> <span class="nf">action</span><span class="p">(</span> <span class="o">&amp;</span><span class="nv">$c</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nb">count</span><span class="p">(</span> <span class="nv">$_POST</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$err</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">ic_user</span><span class="o">-&gt;</span><span class="na">validatemsg</span><span class="p">(</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nv">$err</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="c1">//検証成功</span>
+            <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">ic_user</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> <span class="s1">&#39;err&#39;</span><span class="p">,</span> <span class="nv">$err</span> <span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<p>ちなみに <code class="docutils literal notranslate"><span class="pre">validate</span></code> 関数を使用しても、 <code class="docutils literal notranslate"><span class="pre">$validatemsg</span></code> を設定しておけば <code class="docutils literal notranslate"><span class="pre">GetValidateError</span></code> 関数でエラーメッセージを配列で取得できます。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">ic_user</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">(</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="p">);</span>
+<span class="nv">$err</span> <span class="o">=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">ic_user</span><span class="o">-&gt;</span><span class="na">GetValidateError</span><span class="p">();</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> <span class="s1">&#39;nameerror&#39;</span><span class="p">,</span> <span class="nv">$err</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>データを個々に検証<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>コントローラにバリデータが装備されているので、そのバリデータ関数を直接呼びます。 バリデータは以下のどちらかの変数として利用します。</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">validate</span><span class="o">-&gt;</span><span class="na">function</span><span class="p">();</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">v</span><span class="o">-&gt;</span><span class="na">function</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>バリデート関数は <code class="docutils literal notranslate"><span class="pre">notempty(</span> <span class="pre">$data,</span> <span class="pre">$errmsg</span> <span class="pre">=</span> <span class="pre">'')</span></code> のように引数に任意にエラーメッセージを設定できるようになっており、エラーメッセージが設定されていない場合は検証に成功するとTRUE、失敗するとFALSEが返ります。
+エラーメッセージが設定されている場合、検証に成功するとNULL、失敗するとエラーメッセージが返るようになっています。</p>
+<p><strong>エラーメッセージを設定しない時</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">v</span><span class="o">-&gt;</span><span class="na">notempty</span><span class="p">(</span> <span class="nv">$name</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> <span class="s1">&#39;msg&#39;</span><span class="p">,</span> <span class="s1">&#39;OK!&#39;</span> <span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> <span class="s1">&#39;msg&#39;</span><span class="p">,</span> <span class="s1">&#39;Please input your name.&#39;</span> <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>エラーメッセージ設定時</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$err</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="nv">$err</span> <span class="o">.=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">v</span><span class="o">-&gt;</span><span class="na">notempty</span><span class="p">(</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;Please input your name.&#39;</span> <span class="p">);</span>
+<span class="nv">$err</span> <span class="o">.=</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">v</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">(</span> <span class="nv">$email</span><span class="p">,</span> <span class="s1">&#39;Please input right email.&#39;</span> <span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nv">$err</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">Regist</span><span class="p">(</span> <span class="nv">$name</span><span class="p">,</span> <span class="nv">$email</span> <span class="p">)</span>
+<span class="p">}</span>
+<span class="nv">$c</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> <span class="nv">$err</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>関数<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><p>mixed notempty( mixed data [, string errmsg ] )</p></li>
+<li><p>mixed len( string data, int min, int max [, string errmsg ] )</p></li>
+<li><p>mixed number( mixed data [, string errmsg ] )</p></li>
+<li><p>mixed eisu( string data [, string errmsg ] )</p></li>
+<li><p>mixed email( string data [, string errmsg ] )</p></li>
+</ul>
+<p><strong>mixed notempty( mixed data [, string errmsg ] )</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code> が <code class="docutils literal notranslate"><span class="pre">empty</span></code> でないかを検証します。</p>
+<p><strong>mixed len( string data, int min, int max [, string errmsg ] )</strong></p>
+<p>文字列 <code class="docutils literal notranslate"><span class="pre">data</span></code> の長さが <code class="docutils literal notranslate"><span class="pre">min</span></code> 以上、 <code class="docutils literal notranslate"><span class="pre">max</span></code> 以下であるかを検証します。( <code class="docutils literal notranslate"><span class="pre">validatefunc</span></code> には指定できません。）</p>
+<p><strong>mixed number( mixed data [, string errmsg ] )</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code> が数字であるかを検証します。</p>
+<p><strong>mixed eisu( string data [, string errmsg ] )</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code> が英数字のみで形成されているかを検証します。</p>
+<p><strong>mixed email( string data [, string errmsg ] )</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code> がメールアドレスの形式になっているかを検証します。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="sanitize.html" class="btn btn-neutral float-right" title="サニタイズ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="database.html" class="btn btn-neutral float-left" title="データベース" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, symfo.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

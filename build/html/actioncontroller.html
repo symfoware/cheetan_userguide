@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>アクションコントローラ &mdash; cheetan 0.8.1.0 ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="prev" title="コンポーネント" href="component.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cheetan
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">インストール</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="download.html">リリースノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">インストールの解説</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">マニュアル</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configfile.html">コンフィグファイル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">ビュー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">コントローラ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">データベース</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">バリデート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sanitize.html">サニタイズ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">ロギング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notice.html">仕様、注意事項</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">機能拡張例</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="controller-extend.html">コントローラのオーバーライド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view-extend.html">ビューのオーバーライド</a></li>
+<li class="toctree-l1"><a class="reference internal" href="component.html">コンポーネント</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">アクションコントローラ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#html">htmlコンポーネント</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#htaccess">.htaccessのサンプル</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cheetan</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>アクションコントローラ</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>アクションコントローラ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>処理をひとつひとつのファイルアクセスでなく、CakePHP風にコントローラー内のアクションメソッドとして、まとめて記述する仕様にちいたんを拡張したサンプルです。
+サンプルのブログを流用しておりますので違いを見比べてみて頂けると良いと思います。</p>
+<p>とりあえず初期設定</p>
+<ul class="simple">
+<li><p>必要であれば <code class="docutils literal notranslate"><span class="pre">.htaccess</span></code> に <code class="docutils literal notranslate"><span class="pre">RewriteBase</span></code> を追加</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/config/database.php</span></code> を修正</p></li>
+</ul>
+<p>上記設定すれば既存のブログサンプルが入っている環境であればそのまま動くと思います。</p>
+<p>ファイル構造としては、全て <code class="docutils literal notranslate"><span class="pre">lib</span></code> ディレクトリ内に納めています。
+ディレクトリを見れば何が入っているかは分かると思います。</p>
+<p><code class="docutils literal notranslate"><span class="pre">app_controller.php</span></code> は全てのコントローラから継承される基本のコントローラーです。 こちらを利用して処理の共通化なども可能です。</p>
+<p><code class="docutils literal notranslate"><span class="pre">controllers</span></code> ディレクトリにコントローラを入れておきます。</p>
+<p><strong>blog_data_controller.php</strong></p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">CBlog_dataController</span> <span class="k">extends</span> <span class="nx">CAppController</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="nf">index</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="nf">edit</span><span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blog_data</span><span class="o">-&gt;</span><span class="na">findone</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">例えば</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">/blog_data/index</span></code></div>
+<div class="line">にアクセスすると、</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">controllers/blog_data_controller.php</span></code></div>
+<div class="line">が読み込まれ、その中の</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">CBlog_dataController</span></code></div>
+<div class="line">が読み出され、 <code class="docutils literal notranslate"><span class="pre">index</span></code> メソッドが呼ばれます。</div>
+</div>
+<div class="line-block">
+<div class="line">記述すべき処理は今までと同じです。</div>
+<div class="line">しかしコントローラー内の記述となるので、今まで</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">$c</span></code></div>
+<div class="line">と記述していた箇所は</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">$this</span></code></div>
+<div class="line">と直接コントローラーメソッドを呼び出す形に変更となります。</div>
+</div>
+<div class="line-block">
+<div class="line">例えば</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">/blog_data/edit/112</span></code></div>
+<div class="line">にアクセスすると、</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">edit</span></code> メソッドが呼ばれますが、</div>
+<div class="line">引数として <code class="docutils literal notranslate"><span class="pre">112</span></code> が指定されます。</div>
+<div class="line">上の例だと <code class="docutils literal notranslate"><span class="pre">$id</span></code> に <code class="docutils literal notranslate"><span class="pre">112</span></code> がはいる形になります。</div>
+</div>
+<div class="section" id="html">
+<h2>htmlコンポーネント<a class="headerlink" href="#html" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">html</span><span class="o">-&gt;</span><span class="na">url</span><span class="p">(</span><span class="s1">&#39;/blog_data/index&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">今回のURL形式ですと相対URLなどを記述するのが難しいため、</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">htmlコンポーネント</span></code> を作成致しました。</div>
+<div class="line">上記の形で指定したURLに飛ぶことが出来ます。</div>
+<div class="line">詳細はテンプレートをご覧下さい。</div>
+</div>
+<div class="line-block">
+<div class="line">テンプレートは、 <code class="docutils literal notranslate"><span class="pre">views/blog_data</span></code> にblog_dataコントローラのテンプレートが入ります。</div>
+<div class="line">共通テンプレートは <code class="docutils literal notranslate"><span class="pre">views/layouts/default.html</span></code> になります。</div>
+</div>
+<div class="line-block">
+<div class="line">mod_rewriteでURL書き換えを行っています。</div>
+<div class="line">例えばtestという公開ディレクトリに <code class="docutils literal notranslate"><span class="pre">.htaccess</span></code> と <code class="docutils literal notranslate"><span class="pre">index.php</span></code> がある場合、</div>
+<div class="line">ブラウザ上では</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">test/blog_data/index</span></code></div>
+<div class="line">といった形で閲覧できます。</div>
+</div>
+<div class="line-block">
+<div class="line">上記のようにしたくない場合は <code class="docutils literal notranslate"><span class="pre">.htaccess</span></code> を削除し、</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">index.php?url=blog_data/index</span></code></div>
+<div class="line">みたいな感じで閲覧できると思います。</div>
+</div>
+</div>
+<div class="section" id="htaccess">
+<h2>.htaccessのサンプル<a class="headerlink" href="#htaccess" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On
+    RewriteBase /actioncontroller/
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+&lt;/IfModule&gt;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="component.html" class="btn btn-neutral float-left" title="コンポーネント" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, symfo.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
